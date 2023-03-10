@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class SignInController: UIViewController {
     
     private let viewModel: SignInViewModelProtocol
+    private let disposeBag = DisposeBag()
     
     private let titleLabel = UILabel()
     private let firstNameTextField = UITextField()
@@ -21,6 +24,7 @@ class SignInController: UIViewController {
     private let logInButton = UIButton()
     private let signInGoogle = SignInWithButton()
     private let sigInApple = SignInWithButton()
+    private let errorMessage = UILabel()
     
     init(viewModel: SignInViewModelProtocol) {
         self.viewModel = viewModel
@@ -37,6 +41,7 @@ class SignInController: UIViewController {
         setupViews()
         setupAppearance()
         setupConstraints()
+        bind()
     }
     
     override func viewDidLayoutSubviews() {
@@ -47,12 +52,22 @@ class SignInController: UIViewController {
         signInButton.layer.cornerRadius = signInButton.frame.height / 2
     }
     
+    
+    
+    private func bind() {
+        viewModel.errorMessageRelay
+            .bind(to: errorMessage.rx.text)
+            .disposed(by: disposeBag)
+    }
+    
     @objc private func signInTapped() {
-        
+        viewModel.signInTapped(firstName: firstNameTextField.text,
+                               lastName: lastNameTextField.text,
+                               email: emailTextField.text)
     }
     
     @objc private func logInTapped() {
-        
+        viewModel.logInTapped()
     }
     
 }
@@ -70,7 +85,8 @@ extension SignInController {
             signInButton,
             logInStackView,
             sigInApple,
-            signInGoogle
+            signInGoogle,
+            errorMessage
         ].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -105,6 +121,7 @@ extension SignInController {
         emailTextField.textColor = Resources.Colors.black
         emailTextField.textAlignment = .center
         emailTextField.placeholder = Constants.emailPlaceholder
+        emailTextField.keyboardType = .emailAddress
 
         signInButton.backgroundColor = Resources.Colors.accentColor
         signInButton.titleLabel?.font = UIFont.bold(with: 15)
@@ -127,12 +144,18 @@ extension SignInController {
         signInGoogle.makeSystemAnimation()
         sigInApple.setup(with: Resources.Images.appleLogo, text: Constants.signInWithApple)
         sigInApple.makeSystemAnimation()
+        
+        errorMessage.textColor = .red
+        errorMessage.font = UIFont.regular(with: 12)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 158),
+            
+            errorMessage.bottomAnchor.constraint(equalTo: firstNameTextField.topAnchor, constant: -20),
+            errorMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
             firstNameTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             firstNameTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 77),

@@ -1,0 +1,6 @@
+framework module Pods_OnlineShopTest_UIKit {
+  umbrella header "Pods-OnlineShopTest_UIKit-umbrella.h"
+
+  export *
+  module * { export * }
+}
