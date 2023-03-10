@@ -1,0 +1,24 @@
+//
+//  UIFont + ext.swift
+//  OnlineShopTest_UIKit
+//
+//  Created by Dima Zhiltsov on 10.03.2023.
+//
+
+import UIKit.UIFont
+
+extension UIFont {
+    
+    static func regular(with size: CGFloat) -> UIFont? {
+        return UIFont(name: "Montserrat-Regular", size: size)
+    }
+    
+    static func bold(with size: CGFloat) -> UIFont? {
+        return UIFont(name: "Montserrat-Bold", size: size)
+    }
+    
+    static func light(with size: CGFloat) -> UIFont? {
+        return UIFont(name: "Montserrat-Light", size: size)
+    }
+    
+}

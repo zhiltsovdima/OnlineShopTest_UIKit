@@ -33,6 +33,12 @@
 		62708DFF29BB463B006DCB2B /* Montserrat-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62708DED29BB463B006DCB2B /* Montserrat-Medium.ttf */; };
 		62708E0029BB463B006DCB2B /* Montserrat-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62708DEE29BB463B006DCB2B /* Montserrat-ExtraLightItalic.ttf */; };
 		62708E0129BB463B006DCB2B /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62708DEF29BB463B006DCB2B /* Montserrat-Bold.ttf */; };
+		62708E0529BB49C3006DCB2B /* OnlineShopTest_UIKit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 62708E0329BB49C3006DCB2B /* OnlineShopTest_UIKit.xcdatamodeld */; };
+		62708E0729BB4CBB006DCB2B /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62708E0629BB4CBB006DCB2B /* Resources.swift */; };
+		62708E0A29BB4CE9006DCB2B /* UIColor + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62708E0929BB4CE9006DCB2B /* UIColor + ext.swift */; };
+		62708E0C29BB5E43006DCB2B /* UIFont + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62708E0B29BB5E43006DCB2B /* UIFont + ext.swift */; };
+		62708E0E29BB7783006DCB2B /* SignInWithButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62708E0D29BB7783006DCB2B /* SignInWithButton.swift */; };
+		62708E1029BB83B3006DCB2B /* UIButton + ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62708E0F29BB83B3006DCB2B /* UIButton + ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +70,12 @@
 		62708DED29BB463B006DCB2B /* Montserrat-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.ttf"; sourceTree = "<group>"; };
 		62708DEE29BB463B006DCB2B /* Montserrat-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		62708DEF29BB463B006DCB2B /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		62708E0429BB49C3006DCB2B /* OnlineShopTest_UIKit.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = OnlineShopTest_UIKit.xcdatamodel; sourceTree = "<group>"; };
+		62708E0629BB4CBB006DCB2B /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
+		62708E0929BB4CE9006DCB2B /* UIColor + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + ext.swift"; sourceTree = "<group>"; };
+		62708E0B29BB5E43006DCB2B /* UIFont + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont + ext.swift"; sourceTree = "<group>"; };
+		62708E0D29BB7783006DCB2B /* SignInWithButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInWithButton.swift; sourceTree = "<group>"; };
+		62708E0F29BB83B3006DCB2B /* UIButton + ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton + ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,10 +108,11 @@
 		62708DBB29BB321E006DCB2B /* OnlineShopTest_UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				62708DDC29BB4525006DCB2B /* Resources */,
 				62708DD029BB32B4006DCB2B /* Application */,
 				62708DD229BB346C006DCB2B /* Coordinators */,
 				62708DD729BB3C0B006DCB2B /* Screens */,
+				62708E0829BB4CCF006DCB2B /* Extensions */,
+				62708DDC29BB4525006DCB2B /* Resources */,
 				62708DD129BB32C5006DCB2B /* Supporting Files */,
 			);
 			path = OnlineShopTest_UIKit;
@@ -117,6 +130,7 @@
 		62708DD129BB32C5006DCB2B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				62708E0329BB49C3006DCB2B /* OnlineShopTest_UIKit.xcdatamodeld */,
 				62708DC529BB321F006DCB2B /* Assets.xcassets */,
 				62708DC729BB321F006DCB2B /* LaunchScreen.storyboard */,
 				62708DCA29BB321F006DCB2B /* Info.plist */,
@@ -146,6 +160,7 @@
 			children = (
 				62708DD929BB3C57006DCB2B /* SignInViewModel.swift */,
 				62708DC029BB321E006DCB2B /* SignInController.swift */,
+				62708E0D29BB7783006DCB2B /* SignInWithButton.swift */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -154,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				62708DDD29BB4533006DCB2B /* Fonts */,
+				62708E0629BB4CBB006DCB2B /* Resources.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -181,6 +197,16 @@
 				62708DE729BB463A006DCB2B /* Montserrat-ThinItalic.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		62708E0829BB4CCF006DCB2B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				62708E0929BB4CE9006DCB2B /* UIColor + ext.swift */,
+				62708E0B29BB5E43006DCB2B /* UIFont + ext.swift */,
+				62708E0F29BB83B3006DCB2B /* UIButton + ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,10 +320,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				62708DD629BB3903006DCB2B /* AuthCoordinator.swift in Sources */,
+				62708E1029BB83B3006DCB2B /* UIButton + ext.swift in Sources */,
 				62708DD429BB347D006DCB2B /* AppCoordinator.swift in Sources */,
 				62708DDA29BB3C57006DCB2B /* SignInViewModel.swift in Sources */,
+				62708E0E29BB7783006DCB2B /* SignInWithButton.swift in Sources */,
 				62708DC129BB321E006DCB2B /* SignInController.swift in Sources */,
+				62708E0529BB49C3006DCB2B /* OnlineShopTest_UIKit.xcdatamodeld in Sources */,
+				62708E0729BB4CBB006DCB2B /* Resources.swift in Sources */,
+				62708E0A29BB4CE9006DCB2B /* UIColor + ext.swift in Sources */,
 				62708DBD29BB321E006DCB2B /* AppDelegate.swift in Sources */,
+				62708E0C29BB5E43006DCB2B /* UIFont + ext.swift in Sources */,
 				62708DBF29BB321E006DCB2B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -514,6 +546,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		62708E0329BB49C3006DCB2B /* OnlineShopTest_UIKit.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				62708E0429BB49C3006DCB2B /* OnlineShopTest_UIKit.xcdatamodel */,
+			);
+			currentVersion = 62708E0429BB49C3006DCB2B /* OnlineShopTest_UIKit.xcdatamodel */;
+			path = OnlineShopTest_UIKit.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 62708DB129BB321E006DCB2B /* Project object */;
 }
