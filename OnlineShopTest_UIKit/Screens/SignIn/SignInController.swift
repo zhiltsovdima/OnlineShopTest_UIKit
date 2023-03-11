@@ -46,8 +46,8 @@ class SignInController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        firstNameTextField.layer.cornerRadius = emailTextField.frame.height / 2
-        lastNameTextField.layer.cornerRadius = emailTextField.frame.height / 2
+        firstNameTextField.layer.cornerRadius = firstNameTextField.frame.height / 2
+        lastNameTextField.layer.cornerRadius = lastNameTextField.frame.height / 2
         emailTextField.layer.cornerRadius = emailTextField.frame.height / 2
         signInButton.layer.cornerRadius = signInButton.frame.height / 2
     }
@@ -127,8 +127,8 @@ extension SignInController {
         signInButton.titleLabel?.font = UIFont.bold(with: 15)
         signInButton.setTitleColor(Resources.Colors.buttonTitle, for: .normal)
         signInButton.setTitle(Constants.signIn, for: .normal)
-        signInButton.makeSystemAnimation()
         signInButton.addTarget(self, action: #selector(signInTapped), for: .touchUpInside)
+        signInButton.makeSystemAnimation()
         
         alreadyHaveLabel.font = UIFont.regular(with: 10)
         alreadyHaveLabel.text = Constants.alreadyHave
@@ -138,6 +138,7 @@ extension SignInController {
         logInButton.titleLabel?.font = UIFont.regular(with: 10)
         logInButton.setTitleColor(Resources.Colors.tappableText, for: .normal)
         logInButton.backgroundColor = Resources.Colors.background
+        logInButton.addTarget(self, action: #selector(logInTapped), for: .touchUpInside)
         logInButton.makeSystemAnimation()
         
         signInGoogle.setup(with: Resources.Images.googleLogo, text: Constants.signInWithGoogle)

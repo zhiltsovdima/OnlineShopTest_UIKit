@@ -20,9 +20,11 @@ final class SignInViewModel {
     let errorMessageRelay = BehaviorRelay<String?>(value: nil)
     
     private weak var coordinator: AuthCoordinatorProtocol?
+    private let userServices: UserServicesProtocol
     
-    init(coordinator: AuthCoordinatorProtocol) {
+    init(coordinator: AuthCoordinatorProtocol, userServices: UserServicesProtocol) {
         self.coordinator = coordinator
+        self.userServices = userServices
     }
     
     private func isValidEmail(_ email: String?) -> Bool {
@@ -45,13 +47,19 @@ extension SignInViewModel: SignInViewModelProtocol {
             return
         }
         errorMessageRelay.accept(nil)
-        //save
+        guard let firstName, let lastName, let email else { return }
+        userServices.saveUser(data: UserServices.UserDataInput(
+            firstName: firstName,
+            lastName: lastName,
+            email: email)
+        )
+        coordinator?.successLogIn()
     }
     
 
     
     func logInTapped() {
-        
+        coordinator?.showLogIn()
     }
 }
 
