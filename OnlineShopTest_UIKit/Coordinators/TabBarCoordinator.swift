@@ -53,8 +53,6 @@ final class TabBarCoordinator: Coordinator {
     
     private func prepareTabBarController(with controllers: [UIViewController]) {
         tabBarController.setViewControllers(controllers, animated: false)
-        tabBarController.tabBar.backgroundColor = Resources.Colors.white
-        tabBarController.tabBar.tintColor = Resources.Colors.tabBarTint
     }
 }
 

@@ -47,7 +47,7 @@ final class AppCoordinator: Coordinator {
     }
     
     func showTabBar() {
-        let tabBarController = UITabBarController()
+        let tabBarController = TabBarController()
         let tabBarCoordinator = TabBarCoordinator(tabBarController: tabBarController)
         tabBarCoordinator.start()
         tabBarCoordinator.parentCoordinator = self

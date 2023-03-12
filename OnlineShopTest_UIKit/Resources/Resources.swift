@@ -21,6 +21,7 @@ enum Resources {
         static let black = UIColor(hexString: "#000000")
         static let white = UIColor(hexString: "#FFFFFF")
         static let tabBarTint = UIColor(hexString: "#737297")
+        static let tabBarItemSelected = UIColor(hexString: "#EEEFF4")
     }
     
     enum Images {

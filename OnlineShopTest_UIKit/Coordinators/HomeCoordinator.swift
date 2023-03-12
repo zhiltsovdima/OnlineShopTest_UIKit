@@ -18,7 +18,7 @@ final class HomeCoordinator: Coordinator {
     
     func start() {
         let homeController = UIViewController()
-        homeController.view.backgroundColor = .white
+        homeController.view.backgroundColor = .purple
         navigationController.pushViewController(homeController, animated: false)
     }
 
