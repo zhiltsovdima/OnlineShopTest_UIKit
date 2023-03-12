@@ -17,7 +17,7 @@ final class LogInController: UIViewController {
     
     private let titleLabel = UILabel()
     private let firstNameTextField = UITextField()
-    private let passwordTextField = UITextField()
+    private let passwordTextField = PasswordTextField()
     private let errorMessage = UILabel()
     private let logInButton = UIButton()
     
@@ -32,6 +32,7 @@ final class LogInController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupViews()
         setupAppearance()
         setupConstraints()
@@ -45,8 +46,6 @@ final class LogInController: UIViewController {
         logInButton.layer.cornerRadius = logInButton.frame.height / 2
     }
     
-    
-    
     private func bind() {
         viewModel.errorMessageRelay
             .bind(to: errorMessage.rx.text)
@@ -56,7 +55,6 @@ final class LogInController: UIViewController {
     @objc private func logInTapped() {
         viewModel.logInTapped(name: firstNameTextField.text, password: passwordTextField.text)
     }
-    
 }
 
 // MARK: - Views Settings
@@ -94,8 +92,7 @@ extension LogInController {
         passwordTextField.textColor = Resources.Colors.black
         passwordTextField.textAlignment = .center
         passwordTextField.placeholder = Constants.passwordPlaceholder
-        passwordTextField.isSecureTextEntry = true
-
+        
         logInButton.backgroundColor = Resources.Colors.accentColor
         logInButton.titleLabel?.font = UIFont.bold(with: 15)
         logInButton.setTitleColor(Resources.Colors.buttonTitle, for: .normal)

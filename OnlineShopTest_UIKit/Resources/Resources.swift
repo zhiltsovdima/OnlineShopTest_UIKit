@@ -24,5 +24,7 @@ enum Resources {
     enum Images {
         static let appleLogo = UIImage(named: "Apple")
         static let googleLogo = UIImage(named: "Google")
+        static let hidePassword = UIImage(systemName: "eye.slash")
+        static let showPassword = UIImage(systemName: "eye")
     }
 }
