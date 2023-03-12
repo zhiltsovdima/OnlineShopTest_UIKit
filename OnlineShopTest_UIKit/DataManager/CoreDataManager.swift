@@ -10,7 +10,7 @@ import CoreData
 
 protocol CoreDataManagerProtocol {
     var moc: NSManagedObjectContext { get }
-    func save()
+    func save() throws
     func getAll<T: NSManagedObject>() -> [T]
 }
 
@@ -29,12 +29,8 @@ final class CoreDataManager: CoreDataManagerProtocol {
         persistentContainer.viewContext
     }
     
-    func save() {
-        do {
-            try moc.save()
-        } catch {
-            print("Failed saving moc: \(error.localizedDescription)")
-        }
+    func save() throws {
+        try moc.save()
     }
     
     func getAll<T: NSManagedObject>() -> [T] {

@@ -44,6 +44,7 @@
 		62CDF75E29BC52F200D735D3 /* LogInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF75D29BC52F200D735D3 /* LogInController.swift */; };
 		62CDF76129BC5CCF00D735D3 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF76029BC5CCF00D735D3 /* UserServices.swift */; };
 		62CDF76629BDB6DD00D735D3 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF76529BDB6DD00D735D3 /* PasswordTextField.swift */; };
+		62CDF76929BDC46F00D735D3 /* UserAuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF76829BDC46F00D735D3 /* UserAuthError.swift */; };
 		AB67FB64E67980BA78869ADB /* Pods_OnlineShopTest_UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB4C505997E67981A1D9A02 /* Pods_OnlineShopTest_UIKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +88,7 @@
 		62CDF75D29BC52F200D735D3 /* LogInController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInController.swift; sourceTree = "<group>"; };
 		62CDF76029BC5CCF00D735D3 /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
 		62CDF76529BDB6DD00D735D3 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
+		62CDF76829BDC46F00D735D3 /* UserAuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthError.swift; sourceTree = "<group>"; };
 		6EB4C505997E67981A1D9A02 /* Pods_OnlineShopTest_UIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OnlineShopTest_UIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		70F790AAED5D43A1CFAAEC4A /* Pods-OnlineShopTest_UIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnlineShopTest_UIKit.release.xcconfig"; path = "Target Support Files/Pods-OnlineShopTest_UIKit/Pods-OnlineShopTest_UIKit.release.xcconfig"; sourceTree = "<group>"; };
 		E61A8AC1C42F77719BEA3EA0 /* Pods-OnlineShopTest_UIKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnlineShopTest_UIKit.debug.xcconfig"; path = "Target Support Files/Pods-OnlineShopTest_UIKit/Pods-OnlineShopTest_UIKit.debug.xcconfig"; sourceTree = "<group>"; };
@@ -133,11 +135,12 @@
 		62708DBB29BB321E006DCB2B /* OnlineShopTest_UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				62CDF75F29BC5CAB00D735D3 /* Services */,
 				62708DD029BB32B4006DCB2B /* Application */,
 				62708DD229BB346C006DCB2B /* Coordinators */,
 				62708DD729BB3C0B006DCB2B /* Screens */,
+				62CDF75F29BC5CAB00D735D3 /* Services */,
 				62708E1229BBBFAE006DCB2B /* DataManager */,
+				62CDF76729BDC42700D735D3 /* Errors */,
 				62708E0829BB4CCF006DCB2B /* Extensions */,
 				62708DDC29BB4525006DCB2B /* Resources */,
 				62708DD129BB32C5006DCB2B /* Supporting Files */,
@@ -277,6 +280,14 @@
 				62CDF76529BDB6DD00D735D3 /* PasswordTextField.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		62CDF76729BDC42700D735D3 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				62CDF76829BDC46F00D735D3 /* UserAuthError.swift */,
+			);
+			path = Errors;
 			sourceTree = "<group>";
 		};
 		9FC3B81DEC4073BBDF88D334 /* Pods */ = {
@@ -453,6 +464,7 @@
 				62708E0529BB49C3006DCB2B /* OnlineShopTest_UIKit.xcdatamodeld in Sources */,
 				62708E1429BBBFC2006DCB2B /* CoreDataManager.swift in Sources */,
 				62708E0729BB4CBB006DCB2B /* Resources.swift in Sources */,
+				62CDF76929BDC46F00D735D3 /* UserAuthError.swift in Sources */,
 				62708E0A29BB4CE9006DCB2B /* UIColor + ext.swift in Sources */,
 				62708DBD29BB321E006DCB2B /* AppDelegate.swift in Sources */,
 				62708E0C29BB5E43006DCB2B /* UIFont + ext.swift in Sources */,

@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 protocol UserServicesProtocol {
-    func saveUser(data: UserServices.UserDataInput)
+    func saveUser(data: UserServices.UserDataInput) throws
     func getUsers() -> [User]
 }
 
@@ -21,12 +21,17 @@ final class UserServices: UserServicesProtocol {
         self.coreDataManager = coreDataManager
     }
     
-    func saveUser(data: UserDataInput) {
+    func saveUser(data: UserDataInput) throws {
         let user = User(context: coreDataManager.moc)
         user.setValue(data.firstName, forKey: "firstName")
         user.setValue(data.lastName, forKey: "lastName")
         user.setValue(data.email, forKey: "email")
-        coreDataManager.save()
+        do {
+            try coreDataManager.save()
+        } catch {
+            print("Failed saving to CoreData: \(error.localizedDescription)")
+            throw UserAuthError.savingNewUserError
+        }
     }
     
     func getUsers() -> [User] {

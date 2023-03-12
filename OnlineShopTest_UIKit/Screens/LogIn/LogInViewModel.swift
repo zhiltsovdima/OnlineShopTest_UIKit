@@ -26,34 +26,23 @@ final class LogInViewModel {
         self.userServices = userServices
     }
     
-    private func isValid(_ field: String?) -> Bool {
+    private func isNonEmpty(_ field: String?) -> Bool {
         guard let field else { return false }
-        return field.isEmpty ? false : true
+        return !field.isEmpty
     }
 }
 
 extension LogInViewModel: LogInViewModelProtocol {
     
     func logInTapped(name: String?, password: String?) {
-        guard isValid(name) && isValid(password) else {
-            errorMessageRelay.accept(Constant.emptyMessage)
+        guard isNonEmpty(name), isNonEmpty(password) else {
+            errorMessageRelay.accept(UserAuthError.emptyData.description)
             return
         }
-        let user = userServices.getUsers()
-            .first(where: { $0.firstName == name })
-        print(user ?? "empty")
-        guard user != nil else {
-            errorMessageRelay.accept(Constant.incorrectMessage)
-            return
+        if let _ = userServices.getUsers().first(where: { $0.firstName == name }) {
+            coordinator?.successLogIn()
+        } else {
+            errorMessageRelay.accept(UserAuthError.userDoesntExist.description)
         }
-        coordinator?.successLogIn()
-    }
-    
-}
-
-extension LogInViewModel {
-    private enum Constant {
-        static let emptyMessage = "Enter the data, please"
-        static let incorrectMessage = "This user doesnt't exist"
     }
 }
