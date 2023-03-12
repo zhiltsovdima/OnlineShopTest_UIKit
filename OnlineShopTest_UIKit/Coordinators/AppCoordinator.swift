@@ -42,6 +42,15 @@ final class AppCoordinator: Coordinator {
         let authCoordinator = AuthCoordinator(navigationController)
         self.authCoordinator = authCoordinator
         authCoordinator.start()
+        authCoordinator.parentCoordinator = self
         childCoordinators.append(self)
+    }
+    
+    func showTabBar() {
+        let tabBarController = UITabBarController()
+        let tabBarCoordinator = TabBarCoordinator(tabBarController: tabBarController)
+        tabBarCoordinator.start()
+        tabBarCoordinator.parentCoordinator = self
+        navigationController.setViewControllers([tabBarController], animated: true)
     }
 }

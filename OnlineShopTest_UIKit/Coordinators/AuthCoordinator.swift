@@ -15,6 +15,8 @@ protocol AuthCoordinatorProtocol: AnyObject {
 final class AuthCoordinator: Coordinator {
     var childCoordinators: [Coordinator] = []
     
+    var parentCoordinator: AppCoordinator?
+    
     private let userServices = UserServices(coreDataManager: CoreDataManager())
     private let navigationController: UINavigationController
     
@@ -39,6 +41,7 @@ extension AuthCoordinator: AuthCoordinatorProtocol {
     }
     
     func successLogIn() {
-        
+        parentCoordinator?.showTabBar()
+        parentCoordinator?.childDidFinish(self)
     }
 }

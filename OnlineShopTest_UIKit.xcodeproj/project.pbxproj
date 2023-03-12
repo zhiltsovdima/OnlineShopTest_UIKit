@@ -45,6 +45,12 @@
 		62CDF76129BC5CCF00D735D3 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF76029BC5CCF00D735D3 /* UserServices.swift */; };
 		62CDF76629BDB6DD00D735D3 /* PasswordTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF76529BDB6DD00D735D3 /* PasswordTextField.swift */; };
 		62CDF76929BDC46F00D735D3 /* UserAuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF76829BDC46F00D735D3 /* UserAuthError.swift */; };
+		62CDF76B29BDD75000D735D3 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF76A29BDD75000D735D3 /* TabBarCoordinator.swift */; };
+		62CDF76D29BDE41100D735D3 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF76C29BDE41100D735D3 /* HomeCoordinator.swift */; };
+		62CDF76F29BDE47000D735D3 /* FavoritesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF76E29BDE47000D735D3 /* FavoritesCoordinator.swift */; };
+		62CDF77129BDE48100D735D3 /* CartCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF77029BDE48100D735D3 /* CartCoordinator.swift */; };
+		62CDF77329BDE49100D735D3 /* ChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF77229BDE49100D735D3 /* ChatCoordinator.swift */; };
+		62CDF77529BDE49E00D735D3 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF77429BDE49E00D735D3 /* ProfileCoordinator.swift */; };
 		AB67FB64E67980BA78869ADB /* Pods_OnlineShopTest_UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB4C505997E67981A1D9A02 /* Pods_OnlineShopTest_UIKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +95,12 @@
 		62CDF76029BC5CCF00D735D3 /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
 		62CDF76529BDB6DD00D735D3 /* PasswordTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordTextField.swift; sourceTree = "<group>"; };
 		62CDF76829BDC46F00D735D3 /* UserAuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthError.swift; sourceTree = "<group>"; };
+		62CDF76A29BDD75000D735D3 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
+		62CDF76C29BDE41100D735D3 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		62CDF76E29BDE47000D735D3 /* FavoritesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCoordinator.swift; sourceTree = "<group>"; };
+		62CDF77029BDE48100D735D3 /* CartCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCoordinator.swift; sourceTree = "<group>"; };
+		62CDF77229BDE49100D735D3 /* ChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCoordinator.swift; sourceTree = "<group>"; };
+		62CDF77429BDE49E00D735D3 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		6EB4C505997E67981A1D9A02 /* Pods_OnlineShopTest_UIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OnlineShopTest_UIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		70F790AAED5D43A1CFAAEC4A /* Pods-OnlineShopTest_UIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnlineShopTest_UIKit.release.xcconfig"; path = "Target Support Files/Pods-OnlineShopTest_UIKit/Pods-OnlineShopTest_UIKit.release.xcconfig"; sourceTree = "<group>"; };
 		E61A8AC1C42F77719BEA3EA0 /* Pods-OnlineShopTest_UIKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnlineShopTest_UIKit.debug.xcconfig"; path = "Target Support Files/Pods-OnlineShopTest_UIKit/Pods-OnlineShopTest_UIKit.debug.xcconfig"; sourceTree = "<group>"; };
@@ -173,6 +185,12 @@
 			children = (
 				62708DD329BB347D006DCB2B /* AppCoordinator.swift */,
 				62708DD529BB3903006DCB2B /* AuthCoordinator.swift */,
+				62CDF76A29BDD75000D735D3 /* TabBarCoordinator.swift */,
+				62CDF76C29BDE41100D735D3 /* HomeCoordinator.swift */,
+				62CDF76E29BDE47000D735D3 /* FavoritesCoordinator.swift */,
+				62CDF77029BDE48100D735D3 /* CartCoordinator.swift */,
+				62CDF77229BDE49100D735D3 /* ChatCoordinator.swift */,
+				62CDF77429BDE49E00D735D3 /* ProfileCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -452,21 +470,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				62CDF76129BC5CCF00D735D3 /* UserServices.swift in Sources */,
+				62CDF76F29BDE47000D735D3 /* FavoritesCoordinator.swift in Sources */,
 				62CDF75C29BC528A00D735D3 /* LogInViewModel.swift in Sources */,
 				62CDF76629BDB6DD00D735D3 /* PasswordTextField.swift in Sources */,
 				62708DD629BB3903006DCB2B /* AuthCoordinator.swift in Sources */,
+				62CDF77329BDE49100D735D3 /* ChatCoordinator.swift in Sources */,
 				62708E1029BB83B3006DCB2B /* UIButton + ext.swift in Sources */,
+				62CDF77129BDE48100D735D3 /* CartCoordinator.swift in Sources */,
 				62708DD429BB347D006DCB2B /* AppCoordinator.swift in Sources */,
 				62708DDA29BB3C57006DCB2B /* SignInViewModel.swift in Sources */,
 				62708E0E29BB7783006DCB2B /* SignInWithButton.swift in Sources */,
 				62708DC129BB321E006DCB2B /* SignInController.swift in Sources */,
 				62CDF75E29BC52F200D735D3 /* LogInController.swift in Sources */,
+				62CDF76B29BDD75000D735D3 /* TabBarCoordinator.swift in Sources */,
 				62708E0529BB49C3006DCB2B /* OnlineShopTest_UIKit.xcdatamodeld in Sources */,
 				62708E1429BBBFC2006DCB2B /* CoreDataManager.swift in Sources */,
+				62CDF77529BDE49E00D735D3 /* ProfileCoordinator.swift in Sources */,
 				62708E0729BB4CBB006DCB2B /* Resources.swift in Sources */,
 				62CDF76929BDC46F00D735D3 /* UserAuthError.swift in Sources */,
 				62708E0A29BB4CE9006DCB2B /* UIColor + ext.swift in Sources */,
 				62708DBD29BB321E006DCB2B /* AppDelegate.swift in Sources */,
+				62CDF76D29BDE41100D735D3 /* HomeCoordinator.swift in Sources */,
 				62708E0C29BB5E43006DCB2B /* UIFont + ext.swift in Sources */,
 				62708DBF29BB321E006DCB2B /* SceneDelegate.swift in Sources */,
 			);

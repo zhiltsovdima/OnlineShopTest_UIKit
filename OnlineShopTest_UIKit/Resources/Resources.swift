@@ -19,6 +19,8 @@ enum Resources {
         static let buttonTitle = UIColor(hexString: "#EAEAEA")
         static let tappableText = UIColor(hexString: "#254FE6")
         static let black = UIColor(hexString: "#000000")
+        static let white = UIColor(hexString: "#FFFFFF")
+        static let tabBarTint = UIColor(hexString: "#737297")
     }
     
     enum Images {
@@ -26,5 +28,13 @@ enum Resources {
         static let googleLogo = UIImage(named: "Google")
         static let hidePassword = UIImage(systemName: "eye.slash")
         static let showPassword = UIImage(systemName: "eye")
+        
+        enum TabBar {
+            static let home = UIImage(named: "Home")
+            static let favorites = UIImage(named: "Favorites")
+            static let cart = UIImage(named: "Cart")
+            static let chat = UIImage(named: "Chat")
+            static let profile = UIImage(named: "Profile")
+        }
     }
 }
