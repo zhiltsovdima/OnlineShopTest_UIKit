@@ -44,6 +44,8 @@ final class SignInViewModel {
     }
 }
 
+// MARK: - SignInViewModelProtocol
+
 extension SignInViewModel: SignInViewModelProtocol {
     
     func signInTapped(firstName: String?, lastName: String?, email: String?) {
@@ -57,12 +59,13 @@ extension SignInViewModel: SignInViewModelProtocol {
                 errorMessageRelay.accept(UserAuthError.userAlreadyExist.description)
                 return
             }
-            try userServices.saveUser(data: UserServices.UserDataInput(
+            let user = try userServices.saveUser(data: UserServices.UserDataInput(
                 firstName: firstName,
                 lastName: lastName,
                 email: email)
             )
             errorMessageRelay.accept(nil)
+            userServices.setLoggedInUser(user)
             coordinator?.successLogIn()
         } catch {
             if let authError = error as? UserAuthError {

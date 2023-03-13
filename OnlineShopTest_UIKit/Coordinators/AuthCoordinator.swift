@@ -17,11 +17,12 @@ final class AuthCoordinator: Coordinator {
     
     var parentCoordinator: AppCoordinator?
     
-    private let userServices = UserServices(coreDataManager: CoreDataManager())
+    private let userServices: UserServicesProtocol
     private let navigationController: UINavigationController
     
-    init(_ navigationController: UINavigationController) {
+    init(_ navigationController: UINavigationController, _ userServices: UserServicesProtocol) {
         self.navigationController = navigationController
+        self.userServices = userServices
     }
     
     func start() {
@@ -29,7 +30,6 @@ final class AuthCoordinator: Coordinator {
         let signInController = SignInController(viewModel: viewModel)
         navigationController.pushViewController(signInController, animated: true)
     }
-    
 }
 
 extension AuthCoordinator: AuthCoordinatorProtocol {

@@ -32,6 +32,8 @@ final class LogInViewModel {
     }
 }
 
+// MARK: - LogInViewModelProtocol
+
 extension LogInViewModel: LogInViewModelProtocol {
     
     func logInTapped(name: String?, password: String?) {
@@ -39,10 +41,11 @@ extension LogInViewModel: LogInViewModelProtocol {
             errorMessageRelay.accept(UserAuthError.emptyData.description)
             return
         }
-        if let _ = userServices.getUsers().first(where: { $0.firstName == name }) {
-            coordinator?.successLogIn()
-        } else {
+        guard let user = userServices.getUsers().first(where: { $0.firstName == name }) else {
             errorMessageRelay.accept(UserAuthError.userDoesntExist.description)
+            return
         }
+        userServices.setLoggedInUser(user)
+        coordinator?.successLogIn()
     }
 }

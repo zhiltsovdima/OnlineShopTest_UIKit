@@ -13,9 +13,11 @@ final class TabBarCoordinator: Coordinator {
     var parentCoordinator: AppCoordinator?
     
     private let tabBarController: UITabBarController
+    private let userServices: UserServicesProtocol
     
-    init(tabBarController: UITabBarController) {
+    init(tabBarController: UITabBarController, _ userServives: UserServicesProtocol) {
         self.tabBarController = tabBarController
+        self.userServices = userServives
     }
     
     func start() {
@@ -39,13 +41,13 @@ final class TabBarCoordinator: Coordinator {
     private func getChildCoordinator(for page: TabBarPage, _ navigationController: UINavigationController) -> Coordinator {
         switch page {
         case .profile:
-            return ProfileCoordinator(navigationController)
+            return ProfileCoordinator(navigationController, userServices)
         case .chat:
             return ChatCoordinator(navigationController)
         case .cart:
             return CartCoordinator(navigationController)
         case .favorites:
-            return ProfileCoordinator(navigationController)
+            return FavoritesCoordinator(navigationController)
         case .home:
             return HomeCoordinator(navigationController)
         }
