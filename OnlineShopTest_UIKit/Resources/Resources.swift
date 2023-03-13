@@ -29,6 +29,7 @@ enum Resources {
         static let googleLogo = UIImage(named: "Google")
         static let hidePassword = UIImage(systemName: "eye.slash")
         static let showPassword = UIImage(systemName: "eye")
+        static let uploadItem = UIImage(named: "Upload")
         
         enum TabBar {
             static let home = UIImage(named: "Home")

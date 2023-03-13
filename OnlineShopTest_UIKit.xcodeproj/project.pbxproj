@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		620C110E29BF087600F49E38 /* UploadItemButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620C110D29BF087600F49E38 /* UploadItemButton.swift */; };
 		62708DBD29BB321E006DCB2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62708DBC29BB321E006DCB2B /* AppDelegate.swift */; };
 		62708DBF29BB321E006DCB2B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62708DBE29BB321E006DCB2B /* SceneDelegate.swift */; };
 		62708DC129BB321E006DCB2B /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62708DC029BB321E006DCB2B /* SignInController.swift */; };
@@ -52,10 +53,13 @@
 		62CDF77329BDE49100D735D3 /* ChatCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF77229BDE49100D735D3 /* ChatCoordinator.swift */; };
 		62CDF77529BDE49E00D735D3 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF77429BDE49E00D735D3 /* ProfileCoordinator.swift */; };
 		62CDF77829BE0A0D00D735D3 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF77729BE0A0D00D735D3 /* TabBarController.swift */; };
+		62CDF77B29BE37C000D735D3 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF77A29BE37C000D735D3 /* ProfileViewModel.swift */; };
+		62CDF77D29BE37CE00D735D3 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF77C29BE37CE00D735D3 /* ProfileController.swift */; };
 		AB67FB64E67980BA78869ADB /* Pods_OnlineShopTest_UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB4C505997E67981A1D9A02 /* Pods_OnlineShopTest_UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		620C110D29BF087600F49E38 /* UploadItemButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadItemButton.swift; sourceTree = "<group>"; };
 		62708DB929BB321E006DCB2B /* OnlineShopTest_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnlineShopTest_UIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62708DBC29BB321E006DCB2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		62708DBE29BB321E006DCB2B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -103,6 +107,8 @@
 		62CDF77229BDE49100D735D3 /* ChatCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCoordinator.swift; sourceTree = "<group>"; };
 		62CDF77429BDE49E00D735D3 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		62CDF77729BE0A0D00D735D3 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		62CDF77A29BE37C000D735D3 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		62CDF77C29BE37CE00D735D3 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		6EB4C505997E67981A1D9A02 /* Pods_OnlineShopTest_UIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OnlineShopTest_UIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		70F790AAED5D43A1CFAAEC4A /* Pods-OnlineShopTest_UIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnlineShopTest_UIKit.release.xcconfig"; path = "Target Support Files/Pods-OnlineShopTest_UIKit/Pods-OnlineShopTest_UIKit.release.xcconfig"; sourceTree = "<group>"; };
 		E61A8AC1C42F77719BEA3EA0 /* Pods-OnlineShopTest_UIKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnlineShopTest_UIKit.debug.xcconfig"; path = "Target Support Files/Pods-OnlineShopTest_UIKit/Pods-OnlineShopTest_UIKit.debug.xcconfig"; sourceTree = "<group>"; };
@@ -126,6 +132,14 @@
 				6EB4C505997E67981A1D9A02 /* Pods_OnlineShopTest_UIKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		620C110C29BF086500F49E38 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				620C110D29BF087600F49E38 /* UploadItemButton.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		62708DB029BB321E006DCB2B = {
@@ -201,8 +215,9 @@
 			isa = PBXGroup;
 			children = (
 				62CDF77629BE09D200D735D3 /* Base */,
-				62CDF75A29BC527700D735D3 /* LogIn */,
 				62708DD829BB3C2B006DCB2B /* SignIn */,
+				62CDF75A29BC527700D735D3 /* LogIn */,
+				62CDF77929BE37A100D735D3 /* Profile */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -317,6 +332,16 @@
 				62CDF77729BE0A0D00D735D3 /* TabBarController.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		62CDF77929BE37A100D735D3 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				620C110C29BF086500F49E38 /* Views */,
+				62CDF77A29BE37C000D735D3 /* ProfileViewModel.swift */,
+				62CDF77C29BE37CE00D735D3 /* ProfileController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		9FC3B81DEC4073BBDF88D334 /* Pods */ = {
@@ -489,10 +514,13 @@
 				62708E1029BB83B3006DCB2B /* UIButton + ext.swift in Sources */,
 				62CDF77129BDE48100D735D3 /* CartCoordinator.swift in Sources */,
 				62708DD429BB347D006DCB2B /* AppCoordinator.swift in Sources */,
+				620C110E29BF087600F49E38 /* UploadItemButton.swift in Sources */,
 				62708DDA29BB3C57006DCB2B /* SignInViewModel.swift in Sources */,
+				62CDF77B29BE37C000D735D3 /* ProfileViewModel.swift in Sources */,
 				62708E0E29BB7783006DCB2B /* SignInWithButton.swift in Sources */,
 				62708DC129BB321E006DCB2B /* SignInController.swift in Sources */,
 				62CDF75E29BC52F200D735D3 /* LogInController.swift in Sources */,
+				62CDF77D29BE37CE00D735D3 /* ProfileController.swift in Sources */,
 				62CDF76B29BDD75000D735D3 /* TabBarCoordinator.swift in Sources */,
 				62708E0529BB49C3006DCB2B /* OnlineShopTest_UIKit.xcdatamodeld in Sources */,
 				62708E1429BBBFC2006DCB2B /* CoreDataManager.swift in Sources */,
