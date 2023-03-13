@@ -25,18 +25,28 @@ enum Resources {
     }
     
     enum Images {
-        static let appleLogo = UIImage(named: "Apple")
-        static let googleLogo = UIImage(named: "Google")
+        static let appleLogo = UIImage(named: "apple")
+        static let googleLogo = UIImage(named: "google")
         static let hidePassword = UIImage(systemName: "eye.slash")
         static let showPassword = UIImage(systemName: "eye")
-        static let uploadItem = UIImage(named: "Upload")
+        
+        static let uploadItem = UIImage(named: "upload")
+        static let balance = UIImage(named: "balance")
+        static let push = UIImage(named: "push")
+        static let help = UIImage(named: "help")
+        static let restore = UIImage(named: "restore")
+        static let logout = UIImage(named: "logout")
         
         enum TabBar {
-            static let home = UIImage(named: "Home")
-            static let favorites = UIImage(named: "Favorites")
-            static let cart = UIImage(named: "Cart")
-            static let chat = UIImage(named: "Chat")
-            static let profile = UIImage(named: "Profile")
+            static let home = UIImage(named: "home")
+            static let favorites = UIImage(named: "favorites")
+            static let cart = UIImage(named: "cart")
+            static let chat = UIImage(named: "chat")
+            static let profile = UIImage(named: "profile")
         }
+    }
+    
+    enum CellIdentifier {
+        static let profile = "ProfileCell"
     }
 }

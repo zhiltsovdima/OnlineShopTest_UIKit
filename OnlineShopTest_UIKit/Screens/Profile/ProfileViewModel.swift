@@ -5,13 +5,23 @@
 //  Created by Dima Zhiltsov on 12.03.2023.
 //
 
-import Foundation
+import UIKit.UIImage
 
 protocol ProfileViewModelProtocol {
+    var userName: String? { get }
+    var userPhoto: UIImage? { get }
+    
     func uploadItemTapped()
+    func numberOfRows() -> Int
+    func cellViewModel(for indexPath: IndexPath) -> ProfileCellViewModel
+    func didSelectRow(at indexPath: IndexPath)
 }
 
 final class ProfileViewModel {
+    
+    var userName: String?
+    var userPhoto: UIImage?
+    private var cells = [ProfileCellViewModel]()
     
     private weak var coordinator: ProfileCoordinatorProtocol?
     private var userServices: UserServicesProtocol
@@ -19,8 +29,26 @@ final class ProfileViewModel {
     init(coordinator: ProfileCoordinatorProtocol, _ userServices: UserServicesProtocol) {
         self.coordinator = coordinator
         self.userServices = userServices
+        
+        fetchUserData()
+        setupCells()
     }
     
+    private func fetchUserData() {
+        userName = userServices.userLoggedIn?.firstName
+    }
+    
+    private func setupCells() {
+        cells = [
+            ProfileCellViewModel(type: .push, title: "Trade store", iconType: .balance),
+            ProfileCellViewModel(type: .push, title: "Payment method", iconType: .balance),
+            ProfileCellViewModel(type: .balance, title: "Balance", iconType: .balance, balance: "$ 1593"),
+            ProfileCellViewModel(type: .push, title: "Trade history", iconType: .balance),
+            ProfileCellViewModel(type: .push, title: "Restore Purchase", iconType: .restore),
+            ProfileCellViewModel(type: .normal, title: "Help", iconType: .help),
+            ProfileCellViewModel(type: .normal, title: "Log out", iconType: .logout),
+        ]
+    }
 }
 
 // MARK: - ProfileViewModelProtocol
@@ -31,7 +59,18 @@ extension ProfileViewModel: ProfileViewModelProtocol {
         
     }
     
-    func logOutTapped() {
-        
+    func numberOfRows() -> Int {
+        return cells.count
     }
+    
+    func cellViewModel(for indexPath: IndexPath) -> ProfileCellViewModel {
+        return cells[indexPath.row]
+    }
+    
+    func didSelectRow(at indexPath: IndexPath) {
+        guard cells[indexPath.row].iconType == .logout else { return }
+        userServices.userLoggedIn = nil
+        coordinator?.logoutTapped()
+    }
+    
 }

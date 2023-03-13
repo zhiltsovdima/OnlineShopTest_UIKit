@@ -9,8 +9,8 @@ import UIKit
 
 final class UploadItemButton: UIButton {
     
-    let uploadLabel = UILabel()
-    let uploadImage = UIImageView()
+    private let uploadLabel = UILabel()
+    private let uploadImage = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,14 +26,15 @@ final class UploadItemButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        layer.cornerRadius = bounds.height / 2
     }
     
     private func setupAppearance() {
         backgroundColor = Resources.Colors.accentColor
-        uploadLabel.text = "Upload Item"
+        layer.cornerRadius = Constants.buttonCornerRadius
+        
+        uploadLabel.text = Constants.buttonTitle
         uploadLabel.textColor = Resources.Colors.buttonTitle
-        uploadLabel.font = UIFont.bold(with: 16)
+        uploadLabel.font = UIFont.regular(with: 16)
         
         uploadImage.image = Resources.Images.uploadItem
         uploadImage.image?.withTintColor(Resources.Colors.buttonTitle)
@@ -54,5 +55,14 @@ final class UploadItemButton: UIButton {
             uploadImage.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
             uploadImage.trailingAnchor.constraint(equalTo: uploadLabel.leadingAnchor, constant: -5)
         ])
+    }
+}
+
+// MARK: - Constants
+
+extension UploadItemButton {
+    private enum Constants {
+        static let buttonTitle = "Upload Item"
+        static let buttonCornerRadius: CGFloat = 20
     }
 }

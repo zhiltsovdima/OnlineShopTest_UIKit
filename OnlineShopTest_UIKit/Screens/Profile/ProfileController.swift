@@ -40,12 +40,12 @@ final class ProfileController: UIViewController {
     }
     
     private func setupViews() {
-        [
-            photoView,
-            changePhotoLabel,
-            nameLabel,
-            uploadPhotoButton
-        ].forEach {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(ProfileCell.self, forCellReuseIdentifier: Resources.CellIdentifier.profile)
+        tableView.rowHeight = Constants.rowHeigh
+        
+        [photoView, changePhotoLabel, nameLabel, uploadPhotoButton, tableView].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -66,11 +66,14 @@ final class ProfileController: UIViewController {
         changePhotoLabel.font = UIFont.light(with: 8)
         changePhotoLabel.textColor = Resources.Colors.subTitle
         
-        nameLabel.text = "Test"
+        nameLabel.text = viewModel.userName
         nameLabel.textColor = Resources.Colors.title
         nameLabel.font = UIFont.bold(with: 16)
         
         uploadPhotoButton.addTarget(self, action: #selector(uploadItemTapped), for: .touchUpInside)
+        
+        tableView.backgroundColor = Resources.Colors.background
+        tableView.separatorStyle = .none
     }
     
     private func setupConstraints() {
@@ -89,15 +92,51 @@ final class ProfileController: UIViewController {
             uploadPhotoButton.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 37.8),
             uploadPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             uploadPhotoButton.widthAnchor.constraint(equalToConstant: 290),
-            uploadPhotoButton.heightAnchor.constraint(equalToConstant: 40)
+            uploadPhotoButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            tableView.topAnchor.constraint(equalTo: uploadPhotoButton.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+
         ])
     }
 }
+
+// MARK: - UITableViewDataSource
+
+extension ProfileController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.numberOfRows()
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellViewModel = viewModel.cellViewModel(for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: Resources.CellIdentifier.profile, for: indexPath) as! ProfileCell
+        cell.setup(with: cellViewModel)
+        return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension ProfileController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.didSelectRow(at: indexPath)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+// MARK: - Constants
 
 extension ProfileController {
     private enum Constants {
         static let title = "Profile"
         static let changePhoto = "Change photo"
         static let uploadItem = "Upload Item"
+        
+        static let rowHeigh: CGFloat = 60
     }
 }
