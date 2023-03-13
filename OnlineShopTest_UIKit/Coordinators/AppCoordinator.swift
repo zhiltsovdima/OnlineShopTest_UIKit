@@ -39,8 +39,6 @@ final class AppCoordinator: Coordinator {
     }
     
     func showAuth() {
-        navigationController.isNavigationBarHidden = true
-
         let authCoordinator = AuthCoordinator(navigationController, userServices)
         authCoordinator.start()
         authCoordinator.parentCoordinator = self
@@ -48,11 +46,9 @@ final class AppCoordinator: Coordinator {
     }
     
     func showTabBar() {
-        let tabBarController = TabBarController()
-        let tabBarCoordinator = TabBarCoordinator(tabBarController: tabBarController, userServices)
+        let tabBarCoordinator = TabBarCoordinator(navigationController, userServices)
         tabBarCoordinator.start()
         tabBarCoordinator.parentCoordinator = self
-        navigationController.setViewControllers([tabBarController], animated: true)
         childCoordinators.append(tabBarCoordinator)
     }
 }

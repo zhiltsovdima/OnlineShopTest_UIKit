@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ProfileCoordinatorProtocol: AnyObject {
-    
+    func logoutTapped()
 }
 
 final class ProfileCoordinator: Coordinator {
@@ -32,5 +32,8 @@ final class ProfileCoordinator: Coordinator {
 
 extension ProfileCoordinator: ProfileCoordinatorProtocol {
     
-
+    func logoutTapped() {
+        parentCoordinator?.childDidFinish(self)
+        parentCoordinator?.logout()
+    }
 }

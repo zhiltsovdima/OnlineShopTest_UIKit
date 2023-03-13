@@ -28,7 +28,8 @@ final class AuthCoordinator: Coordinator {
     func start() {
         let viewModel = SignInViewModel(coordinator: self, userServices: userServices)
         let signInController = SignInController(viewModel: viewModel)
-        navigationController.pushViewController(signInController, animated: true)
+        navigationController.setViewControllers([signInController], animated: true)
+        navigationController.isNavigationBarHidden = false
     }
 }
 
@@ -41,7 +42,7 @@ extension AuthCoordinator: AuthCoordinatorProtocol {
     }
     
     func successLogIn() {
-        parentCoordinator?.showTabBar()
         parentCoordinator?.childDidFinish(self)
+        parentCoordinator?.showTabBar()
     }
 }

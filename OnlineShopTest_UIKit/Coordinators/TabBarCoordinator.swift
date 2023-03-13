@@ -12,11 +12,12 @@ final class TabBarCoordinator: Coordinator {
     
     var parentCoordinator: AppCoordinator?
     
-    private let tabBarController: UITabBarController
+    private let navigationController: UINavigationController
+    private let tabBarController = TabBarController()
     private let userServices: UserServicesProtocol
     
-    init(tabBarController: UITabBarController, _ userServives: UserServicesProtocol) {
-        self.tabBarController = tabBarController
+    init(_ navigationController: UINavigationController, _ userServives: UserServicesProtocol) {
+        self.navigationController = navigationController
         self.userServices = userServives
     }
     
@@ -25,6 +26,8 @@ final class TabBarCoordinator: Coordinator {
             .sorted(by: { $0.pageOrderNumber() < $1.pageOrderNumber() })
         let controllers = pages.map { getController(for: $0)}
         prepareTabBarController(with: controllers)
+        navigationController.setViewControllers([tabBarController], animated: true)
+        navigationController.isNavigationBarHidden = true
     }
     
     private func getController(for page: TabBarPage) -> UINavigationController {
@@ -41,7 +44,9 @@ final class TabBarCoordinator: Coordinator {
     private func getChildCoordinator(for page: TabBarPage, _ navigationController: UINavigationController) -> Coordinator {
         switch page {
         case .profile:
-            return ProfileCoordinator(navigationController, userServices)
+            let profileCoordinator = ProfileCoordinator(navigationController, userServices)
+            profileCoordinator.parentCoordinator = self
+            return profileCoordinator
         case .chat:
             return ChatCoordinator(navigationController)
         case .cart:
@@ -55,6 +60,11 @@ final class TabBarCoordinator: Coordinator {
     
     private func prepareTabBarController(with controllers: [UIViewController]) {
         tabBarController.setViewControllers(controllers, animated: false)
+    }
+    
+    func logout() {
+        parentCoordinator?.childDidFinish(self)
+        parentCoordinator?.showAuth()
     }
 }
 
