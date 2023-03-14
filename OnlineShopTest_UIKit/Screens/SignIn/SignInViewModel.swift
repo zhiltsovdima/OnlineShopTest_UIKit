@@ -62,7 +62,8 @@ extension SignInViewModel: SignInViewModelProtocol {
             let user = try userServices.saveUser(data: UserServices.UserDataInput(
                 firstName: firstName,
                 lastName: lastName,
-                email: email)
+                email: email,
+                image: nil)
             )
             errorMessageRelay.accept(nil)
             userServices.setLoggedInUser(user)

@@ -30,6 +30,7 @@ enum Resources {
         static let hidePassword = UIImage(systemName: "eye.slash")
         static let showPassword = UIImage(systemName: "eye")
         
+        static let defaultUserImage = UIImage(named: "defaultUserImage")
         static let uploadItem = UIImage(named: "upload")
         static let balance = UIImage(named: "balance")
         static let push = UIImage(named: "push")

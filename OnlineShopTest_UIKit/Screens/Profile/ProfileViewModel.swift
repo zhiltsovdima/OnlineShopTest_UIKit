@@ -23,7 +23,7 @@ final class ProfileViewModel {
     
     var userName: String?
     var userPhoto: UIImage?
-        
+
     private var cells = [ProfileCellViewModel]()
     
     var updateImageCompletion: ((UIImage) -> Void)?
@@ -40,7 +40,13 @@ final class ProfileViewModel {
     }
     
     private func fetchUserData() {
-        userName = userServices.userLoggedIn?.firstName
+        guard let userLoggedIn = userServices.userLoggedIn else { return }
+        userName = userLoggedIn.firstName
+        if let imageData = userLoggedIn.image {
+            userPhoto = UIImage(data: imageData)
+        } else {
+            userPhoto = Resources.Images.defaultUserImage
+        }
     }
     
     private func setupCells() {
@@ -63,6 +69,7 @@ extension ProfileViewModel: ProfileViewModelProtocol {
     func uploadItemTapped() {
         coordinator?.showUploadNewPhotoAlert { [weak self] image in
             self?.updateImageCompletion?(image)
+            self?.userServices.updateImage(image)
         }
     }
     

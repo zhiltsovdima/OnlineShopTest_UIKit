@@ -3,6 +3,7 @@
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="email" attributeType="String"/>
         <attribute name="firstName" attributeType="String"/>
+        <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
         <attribute name="lastName" attributeType="String"/>
     </entity>
 </model>

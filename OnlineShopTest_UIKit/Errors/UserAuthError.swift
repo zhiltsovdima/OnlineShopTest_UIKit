@@ -12,6 +12,7 @@ enum UserAuthError: Error {
     case userAlreadyExist
     case userDoesntExist
     case savingNewUserError
+    case updatingUserError
     case firstNameEmpty
     case lastNameEmpty
     case incorrectEmail
@@ -26,6 +27,8 @@ enum UserAuthError: Error {
             return "User doesn't exist."
         case .savingNewUserError:
             return "Something went wrong."
+        case .updatingUserError:
+            return "Updating user was failed"
         case .firstNameEmpty:
             return "Enter your First Name."
         case .lastNameEmpty:

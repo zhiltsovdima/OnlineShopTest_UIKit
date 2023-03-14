@@ -34,7 +34,7 @@ final class UploadItemButton: UIButton {
         
         uploadLabel.text = Constants.buttonTitle
         uploadLabel.textColor = Resources.Colors.buttonTitle
-        uploadLabel.font = UIFont.regular(with: 16)
+        uploadLabel.font = UIFont.bold(with: 16)
         
         uploadImage.image = Resources.Images.uploadItem
         uploadImage.image?.withTintColor(Resources.Colors.buttonTitle)

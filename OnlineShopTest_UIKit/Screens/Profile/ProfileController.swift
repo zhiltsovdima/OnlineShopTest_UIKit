@@ -69,6 +69,8 @@ extension ProfileController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.bold(with: 16)!]
         view.backgroundColor = Resources.Colors.background
         
+        photoView.image = viewModel.userPhoto
+        photoView.contentMode = .scaleAspectFill
         photoView.layer.cornerRadius = 30
         photoView.layer.borderWidth = 1
         photoView.layer.borderColor = Resources.Colors.subTitle.cgColor
