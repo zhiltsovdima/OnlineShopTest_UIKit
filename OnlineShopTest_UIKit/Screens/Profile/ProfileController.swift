@@ -93,7 +93,7 @@ extension ProfileController {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             photoView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            photoView.topAnchor.constraint(equalTo: view.topAnchor, constant: 96.5),
+            photoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
             photoView.widthAnchor.constraint(equalToConstant: 60),
             photoView.heightAnchor.constraint(equalToConstant: 60),
             
@@ -108,11 +108,10 @@ extension ProfileController {
             uploadPhotoButton.widthAnchor.constraint(equalToConstant: 290),
             uploadPhotoButton.heightAnchor.constraint(equalToConstant: 40),
             
-            tableView.topAnchor.constraint(equalTo: uploadPhotoButton.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: uploadPhotoButton.bottomAnchor, constant: 5),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -15)
         ])
     }
 }

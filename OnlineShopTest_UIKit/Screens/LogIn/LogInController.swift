@@ -107,7 +107,7 @@ extension LogInController {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 158),
+            titleLabel.topAnchor.constraint(lessThanOrEqualTo: view.topAnchor, constant: 158),
             
             errorMessage.bottomAnchor.constraint(equalTo: firstNameTextField.topAnchor, constant: -20),
             errorMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor),

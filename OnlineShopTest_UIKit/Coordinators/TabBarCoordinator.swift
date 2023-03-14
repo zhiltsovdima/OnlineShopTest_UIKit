@@ -54,7 +54,9 @@ final class TabBarCoordinator: Coordinator {
         case .favorites:
             return FavoritesCoordinator(navigationController)
         case .home:
-            return HomeCoordinator(navigationController)
+            let homeCoordinator = HomeCoordinator(navigationController, userServices)
+            homeCoordinator.parentCoordinator = self
+            return homeCoordinator
         }
     }
     

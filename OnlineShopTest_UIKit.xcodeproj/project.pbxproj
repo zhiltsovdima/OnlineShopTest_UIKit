@@ -12,6 +12,10 @@
 		620C111429BF268100F49E38 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 620C111329BF268100F49E38 /* ProfileCell.swift */; };
 		6260815629BFB2D50095AAA6 /* AlertCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6260815529BFB2D50095AAA6 /* AlertCoordinator.swift */; };
 		6260815829BFB4800095AAA6 /* ImagePickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6260815729BFB4800095AAA6 /* ImagePickerCoordinator.swift */; };
+		6260815A29C089AF0095AAA6 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6260815929C089AF0095AAA6 /* HomeController.swift */; };
+		6260815C29C08A190095AAA6 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6260815B29C08A190095AAA6 /* HomeViewModel.swift */; };
+		6260815F29C0B9680095AAA6 /* LocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6260815E29C0B9680095AAA6 /* LocationButton.swift */; };
+		6260816129C0C45B0095AAA6 /* ProfileImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6260816029C0C45B0095AAA6 /* ProfileImage.swift */; };
 		62708DBD29BB321E006DCB2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62708DBC29BB321E006DCB2B /* AppDelegate.swift */; };
 		62708DBF29BB321E006DCB2B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62708DBE29BB321E006DCB2B /* SceneDelegate.swift */; };
 		62708DC129BB321E006DCB2B /* SignInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62708DC029BB321E006DCB2B /* SignInController.swift */; };
@@ -68,6 +72,10 @@
 		620C111329BF268100F49E38 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		6260815529BFB2D50095AAA6 /* AlertCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCoordinator.swift; sourceTree = "<group>"; };
 		6260815729BFB4800095AAA6 /* ImagePickerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerCoordinator.swift; sourceTree = "<group>"; };
+		6260815929C089AF0095AAA6 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		6260815B29C08A190095AAA6 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		6260815E29C0B9680095AAA6 /* LocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationButton.swift; sourceTree = "<group>"; };
+		6260816029C0C45B0095AAA6 /* ProfileImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImage.swift; sourceTree = "<group>"; };
 		62708DB929BB321E006DCB2B /* OnlineShopTest_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnlineShopTest_UIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62708DBC29BB321E006DCB2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		62708DBE29BB321E006DCB2B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +159,17 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		6260815D29C08A6D0095AAA6 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				6260815B29C08A190095AAA6 /* HomeViewModel.swift */,
+				6260815929C089AF0095AAA6 /* HomeController.swift */,
+				6260815E29C0B9680095AAA6 /* LocationButton.swift */,
+				6260816029C0C45B0095AAA6 /* ProfileImage.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		62708DB029BB321E006DCB2B = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +247,7 @@
 				62CDF77629BE09D200D735D3 /* Base */,
 				62708DD829BB3C2B006DCB2B /* SignIn */,
 				62CDF75A29BC527700D735D3 /* LogIn */,
+				6260815D29C08A6D0095AAA6 /* Home */,
 				62CDF77929BE37A100D735D3 /* Profile */,
 			);
 			path = Screens;
@@ -519,6 +539,7 @@
 			files = (
 				62CDF76129BC5CCF00D735D3 /* UserServices.swift in Sources */,
 				62CDF76F29BDE47000D735D3 /* FavoritesCoordinator.swift in Sources */,
+				6260815A29C089AF0095AAA6 /* HomeController.swift in Sources */,
 				62CDF75C29BC528A00D735D3 /* LogInViewModel.swift in Sources */,
 				62CDF76629BDB6DD00D735D3 /* PasswordTextField.swift in Sources */,
 				62708DD629BB3903006DCB2B /* AuthCoordinator.swift in Sources */,
@@ -529,10 +550,12 @@
 				62708DD429BB347D006DCB2B /* AppCoordinator.swift in Sources */,
 				620C110E29BF087600F49E38 /* UploadItemButton.swift in Sources */,
 				62708DDA29BB3C57006DCB2B /* SignInViewModel.swift in Sources */,
+				6260816129C0C45B0095AAA6 /* ProfileImage.swift in Sources */,
 				62CDF77B29BE37C000D735D3 /* ProfileViewModel.swift in Sources */,
 				62708E0E29BB7783006DCB2B /* SignInWithButton.swift in Sources */,
 				62708DC129BB321E006DCB2B /* SignInController.swift in Sources */,
 				62CDF75E29BC52F200D735D3 /* LogInController.swift in Sources */,
+				6260815C29C08A190095AAA6 /* HomeViewModel.swift in Sources */,
 				6260815629BFB2D50095AAA6 /* AlertCoordinator.swift in Sources */,
 				62CDF77D29BE37CE00D735D3 /* ProfileController.swift in Sources */,
 				62CDF76B29BDD75000D735D3 /* TabBarCoordinator.swift in Sources */,
@@ -540,6 +563,7 @@
 				62708E1429BBBFC2006DCB2B /* CoreDataManager.swift in Sources */,
 				62CDF77529BDE49E00D735D3 /* ProfileCoordinator.swift in Sources */,
 				62708E0729BB4CBB006DCB2B /* Resources.swift in Sources */,
+				6260815F29C0B9680095AAA6 /* LocationButton.swift in Sources */,
 				62CDF77829BE0A0D00D735D3 /* TabBarController.swift in Sources */,
 				62CDF76929BDC46F00D735D3 /* UserAuthError.swift in Sources */,
 				62708E0A29BB4CE9006DCB2B /* UIColor + ext.swift in Sources */,

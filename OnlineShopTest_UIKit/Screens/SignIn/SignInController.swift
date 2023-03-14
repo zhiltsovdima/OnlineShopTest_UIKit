@@ -153,7 +153,7 @@ extension SignInController {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 158),
+            titleLabel.topAnchor.constraint(lessThanOrEqualTo: view.topAnchor, constant: 158),
             
             errorMessage.bottomAnchor.constraint(equalTo: firstNameTextField.topAnchor, constant: -20),
             errorMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -181,11 +181,12 @@ extension SignInController {
             logInStackView.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: 17),
             logInStackView.leadingAnchor.constraint(equalTo: signInButton.leadingAnchor),
             
-            sigInApple.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -133),
-            sigInApple.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 99),
-            
-            signInGoogle.bottomAnchor.constraint(equalTo: sigInApple.topAnchor, constant: -38),
             signInGoogle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 99),
+            signInGoogle.topAnchor.constraint(equalTo: logInStackView.bottomAnchor, constant: 74),
+            signInGoogle.bottomAnchor.constraint(equalTo: sigInApple.topAnchor, constant: -38),
+            
+            sigInApple.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 99),
+            sigInApple.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10)
         ])
     }
 }
