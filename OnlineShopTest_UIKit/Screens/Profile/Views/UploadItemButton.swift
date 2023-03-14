@@ -63,6 +63,6 @@ final class UploadItemButton: UIButton {
 extension UploadItemButton {
     private enum Constants {
         static let buttonTitle = "Upload Item"
-        static let buttonCornerRadius: CGFloat = 20
+        static let buttonCornerRadius: CGFloat = 10
     }
 }

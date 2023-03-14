@@ -7,9 +7,11 @@
 
 import UIKit.UIImage
 
-protocol ProfileViewModelProtocol {
+protocol ProfileViewModelProtocol: AnyObject {
     var userName: String? { get }
     var userPhoto: UIImage? { get }
+        
+    var updateImageCompletion: ((UIImage) -> Void)? { get set }
     
     func uploadItemTapped()
     func numberOfRows() -> Int
@@ -21,7 +23,10 @@ final class ProfileViewModel {
     
     var userName: String?
     var userPhoto: UIImage?
+        
     private var cells = [ProfileCellViewModel]()
+    
+    var updateImageCompletion: ((UIImage) -> Void)?
     
     private weak var coordinator: ProfileCoordinatorProtocol?
     private var userServices: UserServicesProtocol
@@ -56,7 +61,9 @@ final class ProfileViewModel {
 extension ProfileViewModel: ProfileViewModelProtocol {
     
     func uploadItemTapped() {
-        
+        coordinator?.showUploadNewPhotoAlert { [weak self] image in
+            self?.updateImageCompletion?(image)
+        }
     }
     
     func numberOfRows() -> Int {

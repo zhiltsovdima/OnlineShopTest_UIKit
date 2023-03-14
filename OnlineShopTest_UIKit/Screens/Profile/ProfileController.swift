@@ -30,14 +30,26 @@ final class ProfileController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        updateUI()
         setupViews()
         setupAppearance()
         setupConstraints()
     }
     
+    func updateUI() {
+        viewModel.updateImageCompletion = { [weak self] image in
+            self?.photoView.image = image
+        }
+    }
+    
     @objc private func uploadItemTapped() {
         viewModel.uploadItemTapped()
     }
+}
+
+// MARK: - Views Settings
+
+extension ProfileController {
     
     private func setupViews() {
         tableView.dataSource = self
@@ -57,10 +69,10 @@ final class ProfileController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.bold(with: 16)!]
         view.backgroundColor = Resources.Colors.background
         
-        photoView.backgroundColor = .gray
         photoView.layer.cornerRadius = 30
         photoView.layer.borderWidth = 1
         photoView.layer.borderColor = Resources.Colors.subTitle.cgColor
+        photoView.clipsToBounds = true
         
         changePhotoLabel.text = Constants.changePhoto
         changePhotoLabel.font = UIFont.light(with: 8)
