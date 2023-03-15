@@ -7,11 +7,6 @@
 
 import UIKit
 
-protocol ImagePickable {
-    func showImagePicker(sourceType: UIImagePickerController.SourceType)
-    func didFinishPicking(_ image: UIImage)
-}
-
 protocol ProfileCoordinatorProtocol: AnyObject {
     func showUploadNewPhotoAlert(completion: @escaping (UIImage) -> Void)
     func logoutTapped()
