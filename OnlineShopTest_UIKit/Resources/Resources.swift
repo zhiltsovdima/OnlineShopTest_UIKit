@@ -22,6 +22,11 @@ enum Resources {
         static let white = UIColor(hexString: "#FFFFFF")
         static let tabBarTint = UIColor(hexString: "#737297")
         static let tabBarItemSelected = UIColor(hexString: "#EEEFF4")
+        static let serchBarBackground = UIColor(hexString: "#F5F6F7")
+        static let addButtonBackground = UIColor(hexString: "#E5E9EF").withAlphaComponent(85)
+        static let categoryLabelBackground = UIColor(hexString: "#C4C4C4").withAlphaComponent(85)
+        static let discountBackground = UIColor(hexString: "#F93A3A")
+        
     }
     
     enum Images {
@@ -32,6 +37,19 @@ enum Resources {
         
         static let downIcon = UIImage(named: "down")
         static let menu = UIImage(named: "menu")
+        
+        static let phones = UIImage(named: "phones")
+        static let headphones = UIImage(named: "headphones")
+        static let games = UIImage(named: "games")
+        static let cars = UIImage(named: "cars")
+        static let furniture = UIImage(named: "furniture")
+        static let kids = UIImage(named: "kids")
+        
+        static let addImage = UIImage(named: "add")
+        static let addImageBig = UIImage(named: "addBig")
+        static let favorites = UIImage(named: "favoritesSmall")
+        static let flashSalePersonIcon = UIImage(named: "flashSalePersonIcon")
+
         
         static let defaultUserImage = UIImage(named: "defaultUserImage")
         static let uploadItem = UIImage(named: "upload")
@@ -52,5 +70,13 @@ enum Resources {
     
     enum CellIdentifier {
         static let profile = "ProfileCell"
+        
+        static let categories = "CategoriesCell"
+        static let latestItems = "LatestItemsCell"
+        static let flashSaleItems = "FlashSaleItemsCell"
+        
+        static let category = "CategoryCell"
+        static let latest = "LatestCell"
+        static let flashSale = "FlashSaleCell"
     }
 }

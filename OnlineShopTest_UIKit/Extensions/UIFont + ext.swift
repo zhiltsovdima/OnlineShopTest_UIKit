@@ -21,4 +21,12 @@ extension UIFont {
         return UIFont(name: "Montserrat-Light", size: size)
     }
     
+    static func medium(with size: CGFloat) -> UIFont? {
+        return UIFont(name: "Montserrat-Medium", size: size)
+    }
+    
+    static func semiBold(with size: CGFloat) -> UIFont? {
+        return UIFont(name: "Montserrat-SemiBold", size: size)
+    }
+    
 }
