@@ -11,7 +11,7 @@ final class ProfileController: UIViewController {
     
     private let viewModel: ProfileViewModelProtocol
     
-    private let photoView = UIImageView()
+    private let profileImage = ProfileImage()
     private let changePhotoLabel = UILabel()
     private let nameLabel = UILabel()
     private let uploadPhotoButton = UploadItemButton()
@@ -38,7 +38,7 @@ final class ProfileController: UIViewController {
     
     func updateUI() {
         viewModel.updateImageCompletion = { [weak self] image in
-            self?.photoView.image = image
+            self?.profileImage.image = image
         }
     }
     
@@ -57,7 +57,7 @@ extension ProfileController {
         tableView.register(ProfileCell.self, forCellReuseIdentifier: Resources.CellIdentifier.profile)
         tableView.rowHeight = Constants.rowHeigh
         
-        [photoView, changePhotoLabel, nameLabel, uploadPhotoButton, tableView].forEach {
+        [profileImage, changePhotoLabel, nameLabel, uploadPhotoButton, tableView].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -69,12 +69,7 @@ extension ProfileController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.bold(with: 16)!]
         view.backgroundColor = Resources.Colors.background
         
-        photoView.image = viewModel.userPhoto
-        photoView.contentMode = .scaleAspectFill
-        photoView.layer.cornerRadius = 30
-        photoView.layer.borderWidth = 1
-        photoView.layer.borderColor = Resources.Colors.subTitle.cgColor
-        photoView.clipsToBounds = true
+        profileImage.image = viewModel.userPhoto
         
         changePhotoLabel.text = Constants.changePhoto
         changePhotoLabel.font = UIFont.light(with: 8)
@@ -92,12 +87,12 @@ extension ProfileController {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            photoView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            photoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
-            photoView.widthAnchor.constraint(equalToConstant: 60),
-            photoView.heightAnchor.constraint(equalToConstant: 60),
+            profileImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            profileImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
+            profileImage.widthAnchor.constraint(equalToConstant: 60),
+            profileImage.heightAnchor.constraint(equalToConstant: 60),
             
-            changePhotoLabel.topAnchor.constraint(equalTo: photoView.bottomAnchor, constant: 8.5),
+            changePhotoLabel.topAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 8.5),
             changePhotoLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             nameLabel.topAnchor.constraint(equalTo: changePhotoLabel.bottomAnchor, constant: 19.6),

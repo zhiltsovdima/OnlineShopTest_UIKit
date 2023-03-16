@@ -62,6 +62,4 @@ extension ProfileCoordinator: ImagePickable {
     func didFinishPicking(_ image: UIImage) {
         completion?(image)
     }
-    
-    
 }

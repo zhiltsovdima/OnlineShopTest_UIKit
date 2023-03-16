@@ -15,6 +15,10 @@ final class HomeController: UIViewController {
     private let profileImage = ProfileImage()
     private let locationButton = LocationButton()
     
+    private let searchBar = UISearchBar()
+    
+    private let tableView = UITableView()
+    
     init(viewModel: HomeViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -48,8 +52,8 @@ extension HomeController {
             .font: UIFont.bold(with: 20)!,
             .foregroundColor: Resources.Colors.title
         ]
-        let attributedTitle = NSMutableAttributedString(string: Constants.title, attributes: attributes)
-        let range = (Constants.title as NSString).range(of: Constants.coloredPartOfTitle)
+        let attributedTitle = NSMutableAttributedString(string: HomeViewModel.Constants.title, attributes: attributes)
+        let range = (HomeViewModel.Constants.title as NSString).range(of: HomeViewModel.Constants.coloredPartOfTitle)
         attributedTitle.addAttribute(.foregroundColor, value: Resources.Colors.accentColor, range: range)
         
         let titleLabel = UILabel()
@@ -68,15 +72,32 @@ extension HomeController {
         
         view.addSubview(locationButton)
         locationButton.addTarget(self, action: #selector(locationTapped), for: .touchUpInside)
+        
+        view.addSubview(searchBar)
+        
+        view.addSubview(tableView)
+        tableView.register(CategoriesCell.self, forCellReuseIdentifier: Resources.CellIdentifier.categories)
+        tableView.register(LatestItemsCell.self, forCellReuseIdentifier: Resources.CellIdentifier.latestItems)
+        tableView.register(FlashSaleItemsCell.self, forCellReuseIdentifier: Resources.CellIdentifier.flashSaleItems)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.allowsSelection = false
+        tableView.separatorStyle = .none
+        tableView.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
     }
     
     private func setupAppearance() {
         view.backgroundColor = Resources.Colors.background
+        tableView.backgroundColor = Resources.Colors.background
+
+        searchBar.backgroundColor = Resources.Colors.serchBarBackground
+        searchBar.placeholder = HomeViewModel.Constants.searchBarPlaceholder
+        searchBar.searchTextField.font = UIFont.regular(with: 12)
 
     }
     
     private func setupConstraints() {
-        [navBarView, profileImage, locationButton].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [navBarView, profileImage, locationButton, searchBar, tableView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
        
         NSLayoutConstraint.activate([
             profileImage.centerXAnchor.constraint(equalTo: navBarView.centerXAnchor),
@@ -91,15 +112,66 @@ extension HomeController {
             locationButton.widthAnchor.constraint(equalToConstant: 80),
             locationButton.heightAnchor.constraint(equalToConstant: 15),
 
+            searchBar.topAnchor.constraint(equalTo: locationButton.bottomAnchor, constant: 10),
+            searchBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            searchBar.widthAnchor.constraint(equalToConstant: 262),
+            searchBar.heightAnchor.constraint(equalToConstant: 24),
+            
+            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 20),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+
         ])
     }
 }
 
-// MARK: - Constants
-
-extension HomeController {
-    private enum Constants {
-        static let title = "Trade by bata"
-        static let coloredPartOfTitle = "bata"
+extension HomeController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Resources.CellIdentifier.categories, for: indexPath) as! CategoriesCell
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Resources.CellIdentifier.latestItems, for: indexPath) as! LatestItemsCell
+            cell.setup(with: viewModel.latestItems)
+            return cell
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Resources.CellIdentifier.flashSaleItems, for: indexPath) as! FlashSaleItemsCell
+            cell.setup(with: viewModel.flashSaleItems)
+            return cell
+        default: fatalError("Invalid Section")
+        }
     }
 }
+
+extension HomeController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return viewModel.viewFromHeaderInSection(section: section)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 0
+        } else {
+            return tableView.sectionHeaderHeight
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return viewModel.heightForRowAt(tableViewWidth: tableView.bounds.width, indexPath)
+    }
+}
+
+
+
