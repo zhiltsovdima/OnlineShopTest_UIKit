@@ -30,7 +30,9 @@ final class FlashSaleItemsCell: UITableViewCell {
     }
     
     private func setupViews() {
+        backgroundColor = Resources.Colors.background
         contentView.addSubview(collectionView)
+        collectionView.backgroundColor = Resources.Colors.background
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(FlashSaleCell.self, forCellWithReuseIdentifier: Resources.CellIdentifier.flashSale)

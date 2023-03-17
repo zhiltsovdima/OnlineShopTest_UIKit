@@ -35,7 +35,9 @@ final class CategoriesCell: UITableViewCell {
     }
     
     private func setupViews() {
+        backgroundColor = Resources.Colors.background
         contentView.addSubview(collectionView)
+        collectionView.backgroundColor = Resources.Colors.background
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: Resources.CellIdentifier.category)

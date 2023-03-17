@@ -18,6 +18,8 @@ final class HomeController: UIViewController {
     private let searchBar = UISearchBar()
     
     private let tableView = UITableView()
+    private let placeholder = UIActivityIndicatorView()
+    private let errorLabel = UILabel()
     
     init(viewModel: HomeViewModelProtocol) {
         self.viewModel = viewModel
@@ -31,16 +33,40 @@ final class HomeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        updateUI()
+        viewModel.fetchData()
+        showLoadingView()
+        
         setupNavBar()
         setupViews()
         setupAppearance()
         setupConstraints()
     }
     
+    private func updateUI() {
+        viewModel.updateCompletion = { [weak self] errorMessage in
+            guard errorMessage == nil else {
+                self?.errorLabel.text = errorMessage
+                self?.placeholder.stopAnimating()
+                return
+            }
+            self?.tableView.reloadSections(IndexSet(integersIn: 1...2), with: .automatic)
+            self?.hideLoadingView()
+        }
+    }
+    
+    private func showLoadingView() {
+        tableView.isHidden = true
+        placeholder.startAnimating()
+    }
+    private func hideLoadingView() {
+        tableView.isHidden = false
+        placeholder.stopAnimating()        
+    }
+    
     @objc private func locationTapped() {
         print("location tapped")
     }
-
 }
 
 // MARK: - Views Settings
@@ -75,6 +101,13 @@ extension HomeController {
         
         view.addSubview(searchBar)
         
+        view.addSubview(placeholder)
+        placeholder.hidesWhenStopped = true
+        
+        view.addSubview(errorLabel)
+        errorLabel.font = UIFont.semiBold(with: 16)
+        errorLabel.textColor = Resources.Colors.black
+        
         view.addSubview(tableView)
         tableView.register(CategoriesCell.self, forCellReuseIdentifier: Resources.CellIdentifier.categories)
         tableView.register(LatestItemsCell.self, forCellReuseIdentifier: Resources.CellIdentifier.latestItems)
@@ -97,7 +130,7 @@ extension HomeController {
     }
     
     private func setupConstraints() {
-        [navBarView, profileImage, locationButton, searchBar, tableView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+        [navBarView, profileImage, locationButton, searchBar, placeholder, errorLabel, tableView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
        
         NSLayoutConstraint.activate([
             profileImage.centerXAnchor.constraint(equalTo: navBarView.centerXAnchor),
@@ -120,8 +153,13 @@ extension HomeController {
             tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 20),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            placeholder.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            placeholder.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
     }
 }

@@ -11,7 +11,9 @@ protocol HomeViewModelProtocol: AnyObject {
     var userPhoto: UIImage? { get }
     var latestItems: [ShopItemCellViewModel] { get }
     var flashSaleItems: [ShopItemCellViewModel] { get }
+    var updateCompletion: ((String?) -> Void)? { get set }
     
+    func fetchData()
     func heightForRowAt(tableViewWidth: CGFloat, _ indexPath: IndexPath) -> CGFloat
     func viewFromHeaderInSection(section: Int) -> UIView?
 }
@@ -23,17 +25,19 @@ final class HomeViewModel {
     var latestItems = [ShopItemCellViewModel]()
     var flashSaleItems = [ShopItemCellViewModel]()
     
-    let networkManager: NetworkManagerProtocol = NetworkManager()
+    var updateCompletion: ((String?) -> Void)?
+    
+    let networkManager: NetworkManagerProtocol
     
     private weak var coordinator: HomeCoordinatorProtocol?
     private var userServices: UserServicesProtocol
     
-    init(coordinator: HomeCoordinatorProtocol, _ userServices: UserServicesProtocol) {
+    init(coordinator: HomeCoordinatorProtocol, _ userServices: UserServicesProtocol, _ networkManager: NetworkManagerProtocol) {
         self.coordinator = coordinator
         self.userServices = userServices
+        self.networkManager = networkManager
         
         fetchUserData()
-        
     }
     
     private func fetchUserData() {
@@ -42,6 +46,53 @@ final class HomeViewModel {
             userPhoto = UIImage(data: imageData)
         } else {
             userPhoto = Resources.Images.defaultUserImage
+        }
+    }
+    
+    func fetchData() {
+        var latestItems: [ShopItem]?
+        var flashSaleItems: [ShopItem]?
+        var errorMessage: String?
+        
+        let group = DispatchGroup()
+        
+        group.enter()
+
+        networkManager.fetchData(requestType: .latest) { result in
+            switch result {
+            case .success(let items):
+                latestItems = items
+            case .failure(let error):
+                errorMessage = error.description
+            }
+            group.leave()
+        }
+        
+        group.enter()
+        networkManager.fetchData(requestType: .flashSale) { result in
+            switch result {
+            case .success(let items):
+                flashSaleItems = items
+            case .failure(let error):
+                errorMessage = error.description
+            }
+            group.leave()
+        }
+        
+        group.notify(queue: .global()) { [weak self] in
+            guard let self, let latestItems, let flashSaleItems else { return }
+            let imageGroup = DispatchGroup()
+            
+            self.latestItems = latestItems.map {
+                ShopItemCellViewModel(self.networkManager, imageGroup, name: $0.name, category: $0.category, price: $0.price, imageURL: $0.imageUrl, discount: $0.discount)
+            }
+            
+            self.flashSaleItems = flashSaleItems.map {
+                ShopItemCellViewModel(self.networkManager, imageGroup, name: $0.name, category: $0.category, price: $0.price, imageURL: $0.imageUrl, discount: $0.discount)
+            }
+            imageGroup.notify(queue: .main) {
+                self.updateCompletion?(errorMessage)
+            }
         }
     }
 }

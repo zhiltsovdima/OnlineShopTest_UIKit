@@ -18,7 +18,6 @@ final class LatestCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .black
         setupViews()
         setupConstraints()
     }
@@ -41,6 +40,7 @@ final class LatestCell: UICollectionViewCell {
     }
 
     private func setupViews() {
+        backgroundColor = Resources.Colors.background
         layer.cornerRadius = 10
         clipsToBounds = true
         
@@ -55,13 +55,13 @@ final class LatestCell: UICollectionViewCell {
         categoryLabel.layer.cornerRadius = 4
         
         nameLabel.font = UIFont.bold(with: 10)
-        nameLabel.textColor = Resources.Colors.buttonTitle
+        nameLabel.textColor = Resources.Colors.black
         nameLabel.textAlignment = .left
         nameLabel.numberOfLines = 2
         nameLabel.sizeToFit()
         
         priceLabel.font = UIFont.bold(with: 9)
-        priceLabel.textColor = Resources.Colors.buttonTitle
+        priceLabel.textColor = Resources.Colors.black
         
         addButton.setImage(Resources.Images.addImage, for: .normal)
         addButton.imageView?.contentMode = .scaleAspectFit

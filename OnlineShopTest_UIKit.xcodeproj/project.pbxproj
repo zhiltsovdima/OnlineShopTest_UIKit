@@ -369,8 +369,8 @@
 		62A2B9F629C2077A001937DE /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				62A2B9EC29C1CB9D001937DE /* NetworkManager.swift */,
 				62A2B9EE29C1CBD4001937DE /* APIEndpoints.swift */,
+				62A2B9EC29C1CB9D001937DE /* NetworkManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";

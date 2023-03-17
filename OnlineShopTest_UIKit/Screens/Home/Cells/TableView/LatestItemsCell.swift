@@ -30,7 +30,9 @@ final class LatestItemsCell: UITableViewCell {
     }
     
     private func setupViews() {
+        backgroundColor = Resources.Colors.background
         contentView.addSubview(collectionView)
+        collectionView.backgroundColor = Resources.Colors.background
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(LatestCell.self, forCellWithReuseIdentifier: Resources.CellIdentifier.latest)

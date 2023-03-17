@@ -21,7 +21,6 @@ final class FlashSaleCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .black
         setupViews()
         setupConstraints()
     }
@@ -46,13 +45,13 @@ final class FlashSaleCell: UICollectionViewCell {
     }
     
     private func setupViews() {
+        backgroundColor = Resources.Colors.background
         layer.cornerRadius = 10
         clipsToBounds = true
         
         addSubview(imageItem)
-        
         imageItem.contentMode = .scaleAspectFill
-        
+
         personIcon.image = Resources.Images.flashSalePersonIcon
         
         discountLabel.font = UIFont.semiBold(with: 10)
@@ -70,12 +69,12 @@ final class FlashSaleCell: UICollectionViewCell {
         categoryLabel.layer.cornerRadius = 7
         
         nameLabel.font = UIFont.bold(with: 12)
-        nameLabel.textColor = Resources.Colors.buttonTitle
+        nameLabel.textColor = Resources.Colors.black
         nameLabel.textAlignment = .left
         nameLabel.numberOfLines = 2
         
         priceLabel.font = UIFont.bold(with: 10)
-        priceLabel.textColor = Resources.Colors.buttonTitle
+        priceLabel.textColor = Resources.Colors.black
         
         favoriteButton.setImage(Resources.Images.favorites, for: .normal)
         favoriteButton.backgroundColor = Resources.Colors.addButtonBackground
