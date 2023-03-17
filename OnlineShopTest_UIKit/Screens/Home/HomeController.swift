@@ -15,7 +15,7 @@ final class HomeController: UIViewController {
     private let profileImage = ProfileImage()
     private let locationButton = LocationButton()
     
-    private let searchBar = UISearchBar()
+    private let searchBar = SearchView()
     
     private let tableView = UITableView()
     private let placeholder = UIActivityIndicatorView()
@@ -100,6 +100,7 @@ extension HomeController {
         locationButton.addTarget(self, action: #selector(locationTapped), for: .touchUpInside)
         
         view.addSubview(searchBar)
+        searchBar.delegate = self
         
         view.addSubview(placeholder)
         placeholder.hidesWhenStopped = true
@@ -122,11 +123,6 @@ extension HomeController {
     private func setupAppearance() {
         view.backgroundColor = Resources.Colors.background
         tableView.backgroundColor = Resources.Colors.background
-
-        searchBar.backgroundColor = Resources.Colors.serchBarBackground
-        searchBar.placeholder = HomeViewModel.Constants.searchBarPlaceholder
-        searchBar.searchTextField.font = UIFont.regular(with: 12)
-
     }
     
     private func setupConstraints() {
@@ -164,6 +160,8 @@ extension HomeController {
     }
 }
 
+// MARK: - UITableViewDataSource
+
 extension HomeController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -192,6 +190,8 @@ extension HomeController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension HomeController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -208,6 +208,25 @@ extension HomeController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.heightForRowAt(tableViewWidth: tableView.bounds.width, indexPath)
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension HomeController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.searchTextDidChange(searchBar, searchText)
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        self.searchBar.setOffset(false)
+        return true
+    }
+
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        self.searchBar.setOffset(true)
+        return true
     }
 }
 

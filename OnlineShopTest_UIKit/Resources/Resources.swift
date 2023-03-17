@@ -22,7 +22,8 @@ enum Resources {
         static let white = UIColor(hexString: "#FFFFFF")
         static let tabBarTint = UIColor(hexString: "#737297")
         static let tabBarItemSelected = UIColor(hexString: "#EEEFF4")
-        static let serchBarBackground = UIColor(hexString: "#F5F6F7")
+        static let searchBarBackground = UIColor(hexString: "#F5F6F7")
+        static let searchBarText = UIColor(hexString: "#5B5B5B")
         static let addButtonBackground = UIColor(hexString: "#E5E9EF").withAlphaComponent(85)
         static let categoryLabelBackground = UIColor(hexString: "#C4C4C4").withAlphaComponent(85)
         static let discountBackground = UIColor(hexString: "#F93A3A")
@@ -37,7 +38,8 @@ enum Resources {
         
         static let downIcon = UIImage(named: "down")
         static let menu = UIImage(named: "menu")
-        
+        static let search = UIImage(named: "search")
+
         static let phones = UIImage(named: "phones")
         static let headphones = UIImage(named: "headphones")
         static let games = UIImage(named: "games")
@@ -78,5 +80,7 @@ enum Resources {
         static let category = "CategoryCell"
         static let latest = "LatestCell"
         static let flashSale = "FlashSaleCell"
+        
+        static let search = "SearchCell"
     }
 }
