@@ -15,10 +15,14 @@ final class TabBarCoordinator: Coordinator {
     private let navigationController: UINavigationController
     private let tabBarController = TabBarController()
     private let userServices: UserServicesProtocol
+    private let networkManager: NetworkManagerProtocol
     
-    init(_ navigationController: UINavigationController, _ userServives: UserServicesProtocol) {
+    init(_ navigationController: UINavigationController,
+         _ userServives: UserServicesProtocol,
+         _ networkManager: NetworkManagerProtocol) {
         self.navigationController = navigationController
         self.userServices = userServives
+        self.networkManager = networkManager
     }
     
     func start() {
@@ -54,7 +58,7 @@ final class TabBarCoordinator: Coordinator {
         case .favorites:
             return FavoritesCoordinator(navigationController)
         case .home:
-            let homeCoordinator = HomeCoordinator(navigationController, userServices)
+            let homeCoordinator = HomeCoordinator(navigationController, userServices, networkManager)
             homeCoordinator.parentCoordinator = self
             return homeCoordinator
         }

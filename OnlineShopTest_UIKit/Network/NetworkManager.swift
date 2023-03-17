@@ -5,7 +5,7 @@
 //  Created by Dima Zhiltsov on 15.03.2023.
 //
 
-import Foundation
+import UIKit
 
 enum Result<Success, Failure: Error> {
     case success(Success)
@@ -27,9 +27,26 @@ class NetworkManager: NetworkManagerProtocol {
         let task = urlSession.dataTask(with: request) { [weak self] (data, response, error) in
             guard let self else { return completion(Result.failure(NetworkError.failed))}
             do {
-                let safeData = try NetworkError.handleNetworkResponse(data, response)
+                let safeData = try NetworkError.processResponseData(data, response)
                 let result = self.parseShopItems(requestType, safeData)
                 completion(result)
+            } catch {
+                let netError = error as! NetworkError
+                completion(.failure(netError))
+            }
+        }
+        task.resume()
+    }
+    
+    func fetchImage(from url: URL, completion: @escaping (Result<UIImage, NetworkError>) -> Void) {
+        let task = urlSession.dataTask(with: url) { data, response, error in
+            do {
+                let safeData = try NetworkError.processResponseData(data, response)
+                guard let image = UIImage(data: safeData) else {
+                    completion(.failure(NetworkError.unableToDecode))
+                    return
+                }
+                completion(.success(image))
             } catch {
                 let netError = error as! NetworkError
                 completion(.failure(netError))

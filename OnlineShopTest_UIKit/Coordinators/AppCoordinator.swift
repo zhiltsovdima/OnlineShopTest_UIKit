@@ -26,6 +26,7 @@ final class AppCoordinator: Coordinator {
     private let window: UIWindow
     
     private let userServices = UserServices(coreDataManager: CoreDataManager())
+    private let networkManager = NetworkManager()
     
     init(_ window: UIWindow) {
         self.window = window
@@ -46,7 +47,7 @@ final class AppCoordinator: Coordinator {
     }
     
     func showTabBar() {
-        let tabBarCoordinator = TabBarCoordinator(navigationController, userServices)
+        let tabBarCoordinator = TabBarCoordinator(navigationController, userServices, networkManager)
         tabBarCoordinator.start()
         tabBarCoordinator.parentCoordinator = self
         childCoordinators.append(tabBarCoordinator)

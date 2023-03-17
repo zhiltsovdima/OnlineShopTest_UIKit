@@ -17,14 +17,18 @@ final class HomeCoordinator: Coordinator {
     
     private let navigationController: UINavigationController
     private let userServices: UserServicesProtocol
+    private let networkManager: NetworkManagerProtocol
     
-    init(_ navigationController: UINavigationController, _ userServices: UserServicesProtocol) {
+    init(_ navigationController: UINavigationController,
+         _ userServices: UserServicesProtocol,
+         _ networkManager: NetworkManagerProtocol) {
         self.navigationController = navigationController
         self.userServices = userServices
+        self.networkManager = networkManager
     }
     
     func start() {
-        let viewModel = HomeViewModel(coordinator: self, userServices)
+        let viewModel = HomeViewModel(coordinator: self, userServices, networkManager)
         let homeController = HomeController(viewModel: viewModel)
         navigationController.pushViewController(homeController, animated: false)
     }
