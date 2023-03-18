@@ -13,6 +13,7 @@ protocol HomeViewModelProtocol: AnyObject {
     var flashSaleItems: [ShopItemCellViewModel] { get }
     var updateCompletion: ((String?) -> Void)? { get set }
     
+    func searchTextDidChange(_ searchBar: UISearchBar, _ text: String)
     func fetchData()
     func heightForRowAt(tableViewWidth: CGFloat, _ indexPath: IndexPath) -> CGFloat
     func viewFromHeaderInSection(section: Int) -> UIView?
@@ -48,6 +49,11 @@ final class HomeViewModel {
             userPhoto = Resources.Images.defaultUserImage
         }
     }
+}
+
+// MARK: - ProfileViewModelProtocol
+
+extension HomeViewModel: HomeViewModelProtocol {
     
     func fetchData() {
         var latestItems: [ShopItem]?
@@ -58,10 +64,10 @@ final class HomeViewModel {
         
         group.enter()
 
-        networkManager.fetchData(requestType: .latest) { result in
+        networkManager.fetchData(requestType: .latest) { (result: Result<Latest, NetworkError>) in
             switch result {
             case .success(let items):
-                latestItems = items
+                latestItems = items.latest
             case .failure(let error):
                 errorMessage = error.description
             }
@@ -69,10 +75,10 @@ final class HomeViewModel {
         }
         
         group.enter()
-        networkManager.fetchData(requestType: .flashSale) { result in
+        networkManager.fetchData(requestType: .flashSale) { (result: Result<FlashSale, NetworkError>) in
             switch result {
             case .success(let items):
-                flashSaleItems = items
+                flashSaleItems = items.flashSale
             case .failure(let error):
                 errorMessage = error.description
             }
@@ -95,11 +101,30 @@ final class HomeViewModel {
             }
         }
     }
-}
-
-// MARK: - ProfileViewModelProtocol
-
-extension HomeViewModel: HomeViewModelProtocol {
+    
+    func searchTextDidChange(_ searchBar: UISearchBar, _ text: String) {
+        coordinator?.removeSearchResult()
+    
+        var searchResults: SearchData?
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+            self?.networkManager.fetchData(requestType: .search) { (result: Result<SearchData, NetworkError>) in
+                switch result {
+                case .success(let searchData):
+                    searchResults = searchData
+                case .failure(let netError):
+                    print(netError.description)
+                }
+                semaphore.signal()
+            }
+            semaphore.wait()
+            guard let searchResults else { return }
+            let foundWords = searchResults.words.filter { $0.range(of: text, options: .caseInsensitive) != nil }
+            guard !foundWords.isEmpty else { return }
+            self?.coordinator?.showSearchResult(searchBar, foundWords)
+        }
+    }
     
     func viewFromHeaderInSection(section: Int) -> UIView? {
         guard let sectionType = SectionType(rawValue: section) else { return nil }

@@ -22,13 +22,13 @@ class NetworkManager: NetworkManagerProtocol {
         self.urlSession = urlSession
     }
     
-    func fetchData(requestType: APIEndpoints, completion: @escaping (Result<[ShopItem], NetworkError>) -> Void) {
+    func fetchData<T: Decodable>(requestType: APIEndpoints, completion: @escaping (Result<T, NetworkError>) -> Void) {
         let request = requestType.makeURLRequest()
         let task = urlSession.dataTask(with: request) { [weak self] (data, response, error) in
             guard let self else { return completion(Result.failure(NetworkError.failed))}
             do {
                 let safeData = try NetworkError.processResponseData(data, response)
-                let result = self.parseShopItems(requestType, safeData)
+                let result = self.parseData(T.self, safeData)
                 completion(result)
             } catch {
                 let netError = error as! NetworkError
@@ -58,33 +58,12 @@ class NetworkManager: NetworkManagerProtocol {
 
 extension NetworkManager: NetworkManagerDataParser {
     
-    private func parseData<T: Decodable>(_ type: T.Type, _ data: Data) -> Result<T, NetworkError> {
+    func parseData<T: Decodable>(_ type: T.Type, _ data: Data) -> Result<T, NetworkError> {
         do {
             let decodedData = try JSONDecoder().decode(T.self, from: data)
             return .success(decodedData)
         } catch {
             return .failure(.unableToDecode)
-        }
-    }
-    
-    func parseShopItems(_ type: APIEndpoints, _ data: Data) -> Result<[ShopItem], NetworkError> {
-        switch type {
-        case .latest:
-            let result = parseData(Latest.self, data)
-            switch result {
-            case .success(let latestData):
-                return .success(latestData.latest)
-            case .failure(let netError):
-                return .failure(netError)
-            }
-        case .flashSale:
-            let result = parseData(FlashSale.self, data)
-            switch result {
-            case .success(let flashSaleData):
-                return .success(flashSaleData.flashSale)
-            case .failure(let netError):
-                return .failure(netError)
-            }
         }
     }
 }

@@ -32,6 +32,8 @@ final class FlashSaleCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        discountLabel.layer.cornerRadius = discountLabel.frame.height / 2
+        categoryLabel.layer.cornerRadius = categoryLabel.frame.height / 2
         addButton.layer.cornerRadius = addButton.frame.height / 2
         favoriteButton.layer.cornerRadius = favoriteButton.frame.height / 2
     }
@@ -59,14 +61,12 @@ final class FlashSaleCell: UICollectionViewCell {
         discountLabel.textColor = Resources.Colors.white
         discountLabel.textAlignment = .center
         discountLabel.clipsToBounds = true
-        discountLabel.layer.cornerRadius = 7
         
         categoryLabel.font = UIFont.semiBold(with: 10)
         categoryLabel.backgroundColor = Resources.Colors.categoryLabelBackground
         categoryLabel.textColor = Resources.Colors.title
         categoryLabel.textAlignment = .center
         categoryLabel.clipsToBounds = true
-        categoryLabel.layer.cornerRadius = 7
         
         nameLabel.font = UIFont.bold(with: 12)
         nameLabel.textColor = Resources.Colors.black

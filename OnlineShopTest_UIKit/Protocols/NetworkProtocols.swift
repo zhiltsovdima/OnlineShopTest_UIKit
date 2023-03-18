@@ -8,12 +8,12 @@
 import UIKit.UIImage
 
 protocol NetworkManagerProtocol {
-    func fetchData(requestType: APIEndpoints, completion: @escaping (Result<[ShopItem], NetworkError>) -> Void)
+    func fetchData<T: Decodable>(requestType: APIEndpoints, completion: @escaping (Result<T, NetworkError>) -> Void)
     func fetchImage(from url: URL, completion: @escaping (Result<UIImage, NetworkError>) -> Void)
 }
 
 protocol NetworkManagerDataParser {
-    func parseShopItems(_ type: APIEndpoints, _ data: Data) -> Result<[ShopItem], NetworkError>
+    func parseData<T: Decodable>(_ type: T.Type, _ data: Data) -> Result<T, NetworkError>
 }
 
 protocol URLSessionProtocol {

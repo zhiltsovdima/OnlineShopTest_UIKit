@@ -29,6 +29,7 @@ final class LatestCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        categoryLabel.layer.cornerRadius = categoryLabel.frame.height / 2
         addButton.layer.cornerRadius = addButton.frame.height / 2
     }
     
@@ -52,7 +53,6 @@ final class LatestCell: UICollectionViewCell {
         categoryLabel.textColor = Resources.Colors.title
         categoryLabel.textAlignment = .center
         categoryLabel.clipsToBounds = true
-        categoryLabel.layer.cornerRadius = 4
         
         nameLabel.font = UIFont.bold(with: 10)
         nameLabel.textColor = Resources.Colors.black
