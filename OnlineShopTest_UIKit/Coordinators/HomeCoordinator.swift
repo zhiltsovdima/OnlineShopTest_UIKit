@@ -8,10 +8,11 @@
 import UIKit
 
 protocol HomeCoordinatorProtocol: AnyObject {
-    
+    func showSearchResult(_ sourceView: UISearchBar, _ items: [String])
+    func removeSearchResult()
 }
 
-final class HomeCoordinator: Coordinator {
+final class HomeCoordinator: NSObject, Coordinator {
     var childCoordinators: [Coordinator] = []
     var parentCoordinator: TabBarCoordinator?
     
@@ -36,4 +37,36 @@ final class HomeCoordinator: Coordinator {
 
 extension HomeCoordinator: HomeCoordinatorProtocol {
     
+    func showSearchResult(_ sourceView: UISearchBar, _ items: [String]) {
+
+        let searchResultView = SearchResultsController(sourceView, items)
+        searchResultView.modalPresentationStyle = .popover
+        
+        guard let popoverVC = searchResultView.popoverPresentationController else { return }
+        popoverVC.delegate = self
+        popoverVC.sourceView = sourceView
+        popoverVC.sourceRect = CGRect(x: sourceView.searchTextField.frame.minX,
+                                       y: sourceView.searchTextField.frame.maxY,
+                                       width: sourceView.searchTextField.frame.width,
+                                       height: 0
+        )
+        popoverVC.permittedArrowDirections = .up
+        popoverVC.passthroughViews = [sourceView]
+
+        searchResultView.preferredContentSize.width = sourceView.searchTextField.frame.width
+        
+        navigationController.present(searchResultView, animated: true)
+    }
+    
+    func removeSearchResult() {
+        navigationController.dismiss(animated: true)
+    }
 }
+
+extension HomeCoordinator: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+}
+
+

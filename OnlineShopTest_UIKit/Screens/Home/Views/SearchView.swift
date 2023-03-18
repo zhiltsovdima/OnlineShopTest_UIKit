@@ -14,7 +14,7 @@ final class SearchView: UISearchBar {
     private let noOffset = UIOffset(horizontal: 0, vertical: 0)
     private var offset: UIOffset {
         return UIOffset(
-            horizontal: (searchTextField.bounds.width - placeholderWidth - rightViewWidth - 5) / 2,
+            horizontal: (searchTextField.bounds.width - placeholderWidth - rightViewWidth - 20) / 2,
             vertical: 0
         )
     }
