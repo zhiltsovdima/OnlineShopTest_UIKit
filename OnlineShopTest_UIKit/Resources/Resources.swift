@@ -51,8 +51,10 @@ enum Resources {
         static let addImageBig = UIImage(named: "addBig")
         static let favorites = UIImage(named: "favoritesSmall")
         static let flashSalePersonIcon = UIImage(named: "flashSalePersonIcon")
-
         
+        static let plus = UIImage(named: "plus")
+        static let minus = UIImage(named: "minus")
+
         static let defaultUserImage = UIImage(named: "defaultUserImage")
         static let uploadItem = UIImage(named: "upload")
         static let balance = UIImage(named: "balance")
