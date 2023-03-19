@@ -9,7 +9,7 @@ import UIKit
 
 final class LatestItemsCell: UITableViewCell {
     
-    private var shopItems = [ShopItemCellViewModel]()
+    private var shopItems = [ShopItemCellViewModelProtocol]()
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
     private let flowLayout = UICollectionViewFlowLayout()
@@ -25,7 +25,7 @@ final class LatestItemsCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(with shopItems: [ShopItemCellViewModel]) {
+    func setup(with shopItems: [ShopItemCellViewModelProtocol]) {
         self.shopItems = shopItems
     }
     

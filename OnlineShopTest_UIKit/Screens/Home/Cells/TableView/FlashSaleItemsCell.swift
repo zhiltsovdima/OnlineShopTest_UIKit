@@ -9,7 +9,7 @@ import UIKit
 
 final class FlashSaleItemsCell: UITableViewCell {
     
-    private var shopItems = [ShopItemCellViewModel]()
+    private var shopItems = [ShopItemCellViewModelProtocol]()
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
     private let flowLayout = UICollectionViewFlowLayout()
@@ -25,7 +25,7 @@ final class FlashSaleItemsCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setup(with shopItems: [ShopItemCellViewModel]) {
+    func setup(with shopItems: [ShopItemCellViewModelProtocol]) {
         self.shopItems = shopItems
     }
     
@@ -65,6 +65,12 @@ extension FlashSaleItemsCell: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Resources.CellIdentifier.flashSale, for: indexPath) as! FlashSaleCell
         cell.setup(with: shopItems[indexPath.item])
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cellViewModel = shopItems[indexPath.item]
+        cellViewModel.showDetail()
+        collectionView.deselectItem(at: indexPath, animated: true)
     }
 }
 

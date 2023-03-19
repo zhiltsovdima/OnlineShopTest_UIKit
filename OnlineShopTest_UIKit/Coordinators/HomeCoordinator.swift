@@ -10,6 +10,7 @@ import UIKit
 protocol HomeCoordinatorProtocol: AnyObject {
     func showSearchResult(_ sourceView: UISearchBar, _ items: [String])
     func removeSearchResult()
+    func showDetail()
 }
 
 final class HomeCoordinator: NSObject, Coordinator {
@@ -60,6 +61,12 @@ extension HomeCoordinator: HomeCoordinatorProtocol {
     
     func removeSearchResult() {
         navigationController.dismiss(animated: true)
+    }
+    
+    func showDetail() {
+        let viewModel = DetailViewModel(coordinator: self, networkManager)
+        let detailController = DetailController(viewModel)
+        navigationController.pushViewController(detailController, animated: true)
     }
 }
 

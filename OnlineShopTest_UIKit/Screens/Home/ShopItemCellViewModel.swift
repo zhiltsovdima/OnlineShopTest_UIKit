@@ -7,6 +7,17 @@
 
 import UIKit
 
+protocol ShopItemCellViewModelProtocol {
+    var name: String { get }
+    var category: String { get }
+    var price: String { get }
+    var image: UIImage? { get }
+    var discount: String? { get }
+    
+    func updateImage(_ imageGroup: DispatchGroup)
+    func showDetail()
+}
+
 final class ShopItemCellViewModel {
     
     let name: String
@@ -17,8 +28,10 @@ final class ShopItemCellViewModel {
     
     private let imageURL: URL
     private let networkManager: NetworkManagerProtocol
+    private weak var coordinator: HomeCoordinatorProtocol?
     
-    init(_ networkManager: NetworkManagerProtocol, _ imageGroup: DispatchGroup, name: String, category: String, price: Double, imageURL: URL, discount: Int?) {
+    init(_ coordinator: HomeCoordinatorProtocol?, _ networkManager: NetworkManagerProtocol, _ imageGroup: DispatchGroup, name: String, category: String, price: Double, imageURL: URL, discount: Int?) {
+        self.coordinator = coordinator
         self.networkManager = networkManager
         self.name = name
         self.category = category
@@ -28,6 +41,11 @@ final class ShopItemCellViewModel {
         
         updateImage(imageGroup)
     }
+}
+
+// MARK: - ShopItemCellViewModelProtocol
+
+extension ShopItemCellViewModel: ShopItemCellViewModelProtocol {
     
     func updateImage(_ imageGroup: DispatchGroup) {
         imageGroup.enter()
@@ -42,4 +60,7 @@ final class ShopItemCellViewModel {
         }
     }
     
+    func showDetail() {
+        coordinator?.showDetail()
+    }
 }

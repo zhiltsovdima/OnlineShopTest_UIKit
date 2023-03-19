@@ -38,7 +38,7 @@ final class FlashSaleCell: UICollectionViewCell {
         favoriteButton.layer.cornerRadius = favoriteButton.frame.height / 2
     }
     
-    func setup(with viewModel: ShopItemCellViewModel) {
+    func setup(with viewModel: ShopItemCellViewModelProtocol) {
         categoryLabel.text = viewModel.category
         nameLabel.text = viewModel.name
         priceLabel.text = viewModel.price
