@@ -9,7 +9,7 @@ import UIKit
 
 protocol ShopItemCellViewModelProtocol {
     var name: String { get }
-    var category: String { get }
+    var category: String? { get }
     var price: String { get }
     var image: UIImage? { get }
     var discount: String? { get }
@@ -21,16 +21,16 @@ protocol ShopItemCellViewModelProtocol {
 final class ShopItemCellViewModel {
     
     let name: String
-    let category: String
+    let category: String?
     let price: String
     var image: UIImage?
     let discount: String?
     
-    private let imageURL: URL
+    private let imageURL: URL?
     private let networkManager: NetworkManagerProtocol
     private weak var coordinator: HomeCoordinatorProtocol?
     
-    init(_ coordinator: HomeCoordinatorProtocol?, _ networkManager: NetworkManagerProtocol, _ imageGroup: DispatchGroup, name: String, category: String, price: Double, imageURL: URL, discount: Int?) {
+    init(_ coordinator: HomeCoordinatorProtocol?, _ networkManager: NetworkManagerProtocol, _ imageGroup: DispatchGroup, name: String, category: String?, price: Double, imageURL: URL?, discount: Int? = nil) {
         self.coordinator = coordinator
         self.networkManager = networkManager
         self.name = name
@@ -48,6 +48,7 @@ final class ShopItemCellViewModel {
 extension ShopItemCellViewModel: ShopItemCellViewModelProtocol {
     
     func updateImage(_ imageGroup: DispatchGroup) {
+        guard let imageURL else { return }
         imageGroup.enter()
         networkManager.fetchImage(from: imageURL) { [weak self] result in
             switch result {

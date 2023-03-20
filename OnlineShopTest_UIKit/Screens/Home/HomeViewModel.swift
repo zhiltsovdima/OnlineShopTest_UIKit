@@ -90,7 +90,7 @@ extension HomeViewModel: HomeViewModelProtocol {
             let imageGroup = DispatchGroup()
             
             self.latestItems = latestItems.map {
-                ShopItemCellViewModel(self.coordinator, self.networkManager, imageGroup, name: $0.name, category: $0.category, price: $0.price, imageURL: $0.imageUrl, discount: $0.discount)
+                ShopItemCellViewModel(self.coordinator, self.networkManager, imageGroup, name: $0.name, category: $0.category, price: $0.price, imageURL: $0.imageUrl)
             }
             
             self.flashSaleItems = flashSaleItems.map {

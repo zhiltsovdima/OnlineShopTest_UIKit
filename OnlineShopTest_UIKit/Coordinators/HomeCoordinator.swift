@@ -11,6 +11,7 @@ protocol HomeCoordinatorProtocol: AnyObject {
     func showSearchResult(_ sourceView: UISearchBar, _ items: [String])
     func removeSearchResult()
     func showDetail()
+    func backToHome()
 }
 
 final class HomeCoordinator: NSObject, Coordinator {
@@ -47,9 +48,9 @@ extension HomeCoordinator: HomeCoordinatorProtocol {
         popoverVC.delegate = self
         popoverVC.sourceView = sourceView
         popoverVC.sourceRect = CGRect(x: sourceView.searchTextField.frame.minX,
-                                       y: sourceView.searchTextField.frame.maxY,
-                                       width: sourceView.searchTextField.frame.width,
-                                       height: 0
+                                      y: sourceView.searchTextField.frame.maxY,
+                                      width: sourceView.searchTextField.frame.width,
+                                      height: 0
         )
         popoverVC.permittedArrowDirections = .up
         popoverVC.passthroughViews = [sourceView]
@@ -67,6 +68,10 @@ extension HomeCoordinator: HomeCoordinatorProtocol {
         let viewModel = DetailViewModel(coordinator: self, networkManager)
         let detailController = DetailController(viewModel)
         navigationController.pushViewController(detailController, animated: true)
+    }
+    
+    func backToHome() {
+        navigationController.popViewController(animated: true)
     }
 }
 
