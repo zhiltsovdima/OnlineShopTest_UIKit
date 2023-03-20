@@ -27,7 +27,9 @@ enum Resources {
         static let addButtonBackground = UIColor(hexString: "#E5E9EF").withAlphaComponent(85)
         static let categoryLabelBackground = UIColor(hexString: "#C4C4C4").withAlphaComponent(85)
         static let discountBackground = UIColor(hexString: "#F93A3A")
-        
+        static let priceOnButton = UIColor(hexString: "#99A0FF")
+        static let colorTitle = UIColor(hexString: "#737373")
+        static let selectedColor = UIColor(hexString: "#ADADAD")
     }
     
     enum Images {
@@ -52,6 +54,8 @@ enum Resources {
         static let favorites = UIImage(named: "favoritesSmall")
         static let flashSalePersonIcon = UIImage(named: "flashSalePersonIcon")
         
+        static let back = UIImage(named: "back")
+        static let rating = UIImage(named: "rating")
         static let plus = UIImage(named: "plus")
         static let minus = UIImage(named: "minus")
 
