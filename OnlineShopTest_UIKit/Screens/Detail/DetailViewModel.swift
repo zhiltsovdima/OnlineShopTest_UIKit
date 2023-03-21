@@ -11,6 +11,7 @@ protocol DetailViewModelProtocol: AnyObject {
     var detailData: DetailModel? { get }
     var errorMessage: String? { get }
     var updateCompletion: (() -> Void)? { get set }
+    var updateImagesCompletion: (() -> Void)? { get set }
     
     func fetchData()
     func stepperValueChanged(_ value: Int)
@@ -23,6 +24,7 @@ final class DetailViewModel {
     var errorMessage: String?
     
     var updateCompletion: (() -> Void)?
+    var updateImagesCompletion: (() -> Void)?
     
     private weak var coordinator: HomeCoordinatorProtocol?
     private let networkManager: NetworkManagerProtocol
@@ -38,7 +40,11 @@ final class DetailViewModel {
 extension DetailViewModel: DetailViewModelProtocol {
     
     func fetchData() {
+        var imageUrls = [URL]()
+        var images = [UIImage]()
+        var errorMessage: String?
         
+        let dispatchSemaphore = DispatchSemaphore(value: 0)
         networkManager.fetchData(requestType: .detail) { [weak self] (result: Result<ShopItem, NetworkError>) in
             guard let self else { return }
             switch result {
@@ -51,12 +57,33 @@ extension DetailViewModel: DetailViewModelProtocol {
                     reviews: "(\(shopItem.numberOfReviews ?? 0) reviews)",
                     colors: shopItem.colors?.compactMap { UIColor(hexString: $0) }
                 )
+                imageUrls = shopItem.imageUrls ?? []
             case .failure(let error):
-                self.errorMessage = error.description
+                errorMessage = error.description
             }
-            DispatchQueue.main.async {
-                self.updateCompletion?()
+            dispatchSemaphore.signal()
+        }
+        
+        dispatchSemaphore.wait()
+        updateCompletion?()
+        
+        guard errorMessage == nil else { return }
+        let dispathGroup = DispatchGroup()
+        imageUrls.forEach {
+            dispathGroup.enter()
+            networkManager.fetchImage(from: $0) { result in
+                switch result {
+                case .success(let image):
+                    images.append(image)
+                case .failure(let error):
+                    errorMessage = error.description
+                }
+                dispathGroup.leave()
             }
+        }
+        dispathGroup.notify(queue: .main) { [weak self] in
+            self?.detailData?.images = images
+            self?.updateImagesCompletion?()
         }
     }
     

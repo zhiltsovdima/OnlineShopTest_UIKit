@@ -14,6 +14,7 @@ struct DetailModel {
     let rating: String
     let reviews: String
     let colors: [UIColor]?
+    var images: [UIImage]?
     var count = 1
     var price: String {
         String(format: "$ %.2f", priceDouble)
