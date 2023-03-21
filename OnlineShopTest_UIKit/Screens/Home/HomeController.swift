@@ -63,9 +63,11 @@ final class HomeController: UIViewController {
         tableView.isHidden = false
         placeholder.stopAnimating()        
     }
-    
     @objc private func locationTapped() {
         print("location tapped")
+    }
+    @objc private func handleTap() {
+        view.endEditing(true)
     }
 }
 
@@ -94,6 +96,10 @@ extension HomeController {
     }
     
     private func setupViews() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+        
         profileImage.image = viewModel.userPhoto
         
         view.addSubview(locationButton)

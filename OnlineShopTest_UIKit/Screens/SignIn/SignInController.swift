@@ -70,6 +70,9 @@ class SignInController: UIViewController {
         viewModel.logInTapped()
     }
     
+    @objc private func handleTap() {
+        view.endEditing(true)
+    }
 }
 
 // MARK: - Views Settings
@@ -95,6 +98,10 @@ extension SignInController {
         logInStackView.axis = .horizontal
         logInStackView.spacing = 5
         alreadyHaveLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
     
     private func setupAppearance() {

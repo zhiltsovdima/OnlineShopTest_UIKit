@@ -12,6 +12,7 @@ import RxCocoa
 protocol LogInViewModelProtocol: AnyObject {
     var errorMessageRelay: BehaviorRelay<String?> { get }
     func logInTapped(name: String?, password: String?)
+    func backToLogIn()
 }
 
 final class LogInViewModel {
@@ -47,5 +48,9 @@ extension LogInViewModel: LogInViewModelProtocol {
         }
         userServices.setLoggedInUser(user)
         coordinator?.successLogIn()
+    }
+    
+    func backToLogIn() {
+        coordinator?.backToLogIn()
     }
 }

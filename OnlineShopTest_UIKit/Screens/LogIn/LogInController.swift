@@ -55,6 +55,12 @@ final class LogInController: UIViewController {
     @objc private func logInTapped() {
         viewModel.logInTapped(name: firstNameTextField.text, password: passwordTextField.text)
     }
+    @objc private func backToHome() {
+        viewModel.backToLogIn()
+    }
+    @objc private func handleTap() {
+        view.endEditing(true)
+    }
 }
 
 // MARK: - Views Settings
@@ -72,9 +78,16 @@ extension LogInController {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
     
     private func setupAppearance() {
+        let leftBarButton = UIBarButtonItem(image: Resources.Images.back, style: .done, target: self, action: #selector(backToHome))
+        navigationItem.leftBarButtonItem = leftBarButton
+        navigationItem.leftBarButtonItem?.tintColor = Resources.Colors.black
         view.backgroundColor = Resources.Colors.background
         titleLabel.font = UIFont.bold(with: 27.0)
         titleLabel.textColor = Resources.Colors.title

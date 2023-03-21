@@ -10,6 +10,7 @@ import UIKit
 protocol AuthCoordinatorProtocol: AnyObject {
     func showLogIn()
     func successLogIn()
+    func backToLogIn()
 }
 
 final class AuthCoordinator: Coordinator {
@@ -44,5 +45,9 @@ extension AuthCoordinator: AuthCoordinatorProtocol {
     func successLogIn() {
         parentCoordinator?.childDidFinish(self)
         parentCoordinator?.showTabBar()
+    }
+    
+    func backToLogIn() {
+        navigationController.popViewController(animated: true)
     }
 }
