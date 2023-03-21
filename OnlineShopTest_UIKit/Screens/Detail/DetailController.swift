@@ -11,6 +11,8 @@ final class DetailController: UIViewController {
     
     private let viewModel: DetailViewModelProtocol
     
+    private let imagesView = ImagesView()
+    
     private let nameLabel = UILabel()
     private let descriptionLabel = UILabel()
     private let priceLabel = UILabel()
@@ -41,6 +43,7 @@ final class DetailController: UIViewController {
         
         updateUI()
         viewModel.fetchData()
+                
         setupViews()
         setupAppearance()
         setupConstraints()
@@ -59,16 +62,21 @@ final class DetailController: UIViewController {
                 self.colorsSegments.setup(withColors: detailData.colors ?? [])
             }
         }
+        viewModel.updateImagesCompletion = { [weak self] in
+            guard let self, let images = self.viewModel.detailData?.images else { return }
+            self.imagesView.updateUI(with: images)
+        }
     }
     
+    @objc private func backToHome() {
+        viewModel.backToHome()
+    }
     @objc private func stepperValueChanged() {
         viewModel.stepperValueChanged(itemStepper.value)
     }
     @objc private func colorSelected() {
     }
-    @objc private func backToHome() {
-        viewModel.backToHome()
-    }
+    
 }
 
 // MARK: - Views Settings
@@ -76,34 +84,35 @@ final class DetailController: UIViewController {
 extension DetailController {
     
     private func setupViews() {
-        
-        [nameLabel, priceLabel, descriptionLabel, ratingStackView, colorLabel, colorsSegments, addingToCartView].forEach {
+        [imagesView, nameLabel, priceLabel, descriptionLabel, ratingStackView, colorLabel, colorsSegments, addingToCartView].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         [ratingIcon, ratingLabel, reviewsLabel].forEach { ratingStackView.addArrangedSubview($0) }
-        ratingStackView.axis = .horizontal
-        ratingStackView.spacing = 4
-        
-        colorsSegments.addTarget(self, action: #selector(colorSelected), for: .valueChanged)
-        
         [itemStepper, addToCartButton].forEach {
             addingToCartView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
+        
+        ratingStackView.axis = .horizontal
+        ratingStackView.spacing = 4
+        
+        colorsSegments.addTarget(self, action: #selector(colorSelected), for: .valueChanged)
+
         itemStepper.setup(value: 1)
         itemStepper.addTarget(self, action: #selector(stepperValueChanged), for: .valueChanged)
     }
     
     private func setupAppearance() {
+        let leftBarButton = UIBarButtonItem(image: Resources.Images.back, style: .done, target: self, action: #selector(backToHome))
+        navigationItem.leftBarButtonItem = leftBarButton
+        navigationItem.leftBarButtonItem?.tintColor = Resources.Colors.black
         view.backgroundColor = Resources.Colors.background
-        let barItem = UIBarButtonItem(image: Resources.Images.back, style: .done, target: self, action: #selector(backToHome))
-        navigationItem.leftBarButtonItem = barItem
-        
+
         nameLabel.font = UIFont.bold(with: 22)
         nameLabel.textColor = Resources.Colors.title
         
-        priceLabel.font = UIFont.bold(with: 20)
+        priceLabel.font = UIFont.bold(with: 16)
         priceLabel.textColor = Resources.Colors.title
         
         descriptionLabel.numberOfLines = 0
@@ -128,7 +137,12 @@ extension DetailController {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 450),
+            imagesView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            imagesView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            imagesView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            imagesView.bottomAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            nameLabel.topAnchor.constraint(equalTo: imagesView.bottomAnchor, constant: 10),
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
             nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: priceLabel.leadingAnchor, constant: -10),
             nameLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
@@ -148,6 +162,7 @@ extension DetailController {
             
             colorsSegments.topAnchor.constraint(equalTo: colorLabel.bottomAnchor, constant: 13),
             colorsSegments.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            colorsSegments.bottomAnchor.constraint(lessThanOrEqualTo: addingToCartView.topAnchor, constant: -5),
             
             addingToCartView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             addingToCartView.widthAnchor.constraint(equalTo: view.widthAnchor),
