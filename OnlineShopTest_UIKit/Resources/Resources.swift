@@ -58,6 +58,8 @@ enum Resources {
         static let rating = UIImage(named: "rating")
         static let plus = UIImage(named: "plus")
         static let minus = UIImage(named: "minus")
+        static let separator = UIImage(named: "separator")
+        static let share = UIImage(named: "share")
 
         static let defaultUserImage = UIImage(named: "defaultUserImage")
         static let uploadItem = UIImage(named: "upload")

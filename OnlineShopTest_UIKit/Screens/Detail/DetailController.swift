@@ -12,6 +12,7 @@ final class DetailController: UIViewController {
     private let viewModel: DetailViewModelProtocol
     
     private let imagesView = ImagesView()
+    private let favoriteShareView = FavoriteShareView()
     
     private let nameLabel = UILabel()
     private let descriptionLabel = UILabel()
@@ -84,7 +85,7 @@ final class DetailController: UIViewController {
 extension DetailController {
     
     private func setupViews() {
-        [imagesView, nameLabel, priceLabel, descriptionLabel, ratingStackView, colorLabel, colorsSegments, addingToCartView].forEach {
+        [imagesView, favoriteShareView, nameLabel, priceLabel, descriptionLabel, ratingStackView, colorLabel, colorsSegments, addingToCartView].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -141,6 +142,11 @@ extension DetailController {
             imagesView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             imagesView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             imagesView.bottomAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            favoriteShareView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -34),
+            favoriteShareView.widthAnchor.constraint(equalToConstant: 42),
+            favoriteShareView.heightAnchor.constraint(equalToConstant: 95),
+            favoriteShareView.bottomAnchor.constraint(equalTo: priceLabel.topAnchor, constant: -136),
             
             nameLabel.topAnchor.constraint(equalTo: imagesView.bottomAnchor, constant: 10),
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
