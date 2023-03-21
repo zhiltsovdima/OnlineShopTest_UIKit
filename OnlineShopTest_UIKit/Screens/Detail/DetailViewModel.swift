@@ -53,17 +53,18 @@ extension DetailViewModel: DetailViewModelProtocol {
                     colors: shopItem.colors?.compactMap { UIColor(hexString: $0) }
                 )
                 self.detailData = detailData
-                self.fetchImages(from: shopItem.imageUrls ?? [])
+                self.fetchImages(from: shopItem.imageUrls)
             case .failure(let error):
-                DispatchQueue.main.async {
-                    self.errorMessage = error.description
-                    self.updateCompletion?()
-                }
+                self.errorMessage = error.description
+            }
+            DispatchQueue.main.async {
+                self.updateCompletion?()
             }
         }
     }
     
-    func fetchImages(from urls: [URL]) {
+    private func fetchImages(from urls: [URL]?) {
+        guard let urls, !urls.isEmpty else { return }
         var images = [UIImage]()
         var errorMessage: String?
         
@@ -87,7 +88,6 @@ extension DetailViewModel: DetailViewModelProtocol {
             } else {
                 self.detailData?.images = images
             }
-            self.updateCompletion?()
             self.updateImagesCompletion?()
         }
     }

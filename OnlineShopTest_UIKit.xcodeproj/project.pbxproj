@@ -78,13 +78,13 @@
 		62B9D4F129C9A5E0006E1D56 /* ThumbnailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B9D4F029C9A5E0006E1D56 /* ThumbnailCollectionViewCell.swift */; };
 		62B9D4F329C9AF45006E1D56 /* ThumbnailCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B9D4F229C9AF45006E1D56 /* ThumbnailCollectionView.swift */; };
 		62B9D4F529C9B3C1006E1D56 /* FavoriteShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B9D4F429C9B3C1006E1D56 /* FavoriteShareView.swift */; };
-		62B9D50629CA0FE4006E1D56 /* SignInViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B9D50529CA0FE4006E1D56 /* SignInViewModelTests.swift */; };
 		62B9D50829CA1125006E1D56 /* NetworkManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B9D50729CA1125006E1D56 /* NetworkManagerMock.swift */; };
-		62B9D50A29CA1218006E1D56 /* UserServicesMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B9D50929CA1218006E1D56 /* UserServicesMock.swift */; };
-		62B9D50C29CA1258006E1D56 /* AuthCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B9D50B29CA1258006E1D56 /* AuthCoordinatorMock.swift */; };
-		62B9D50E29CA1D34006E1D56 /* CoreDataManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B9D50D29CA1D34006E1D56 /* CoreDataManagerMock.swift */; };
 		62B9D51629CA2889006E1D56 /* DetailViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B9D51529CA2889006E1D56 /* DetailViewModelTests.swift */; };
 		62B9D51829CA28DC006E1D56 /* HomeCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B9D51729CA28DC006E1D56 /* HomeCoordinatorMock.swift */; };
+		62B9D51A29CA544B006E1D56 /* AuthCoordinatorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B9D50B29CA1258006E1D56 /* AuthCoordinatorMock.swift */; };
+		62B9D51B29CA544B006E1D56 /* SignInViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B9D50529CA0FE4006E1D56 /* SignInViewModelTests.swift */; };
+		62B9D51C29CA544B006E1D56 /* CoreDataManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B9D50D29CA1D34006E1D56 /* CoreDataManagerMock.swift */; };
+		62B9D51D29CA544B006E1D56 /* UserServicesMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B9D50929CA1218006E1D56 /* UserServicesMock.swift */; };
 		62CDF75C29BC528A00D735D3 /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF75B29BC528A00D735D3 /* LogInViewModel.swift */; };
 		62CDF75E29BC52F200D735D3 /* LogInController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF75D29BC52F200D735D3 /* LogInController.swift */; };
 		62CDF76129BC5CCF00D735D3 /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CDF76029BC5CCF00D735D3 /* UserServices.swift */; };
@@ -372,6 +372,10 @@
 		62708DDC29BB4525006DCB2B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				62B9D50529CA0FE4006E1D56 /* SignInViewModelTests.swift */,
+				62B9D50D29CA1D34006E1D56 /* CoreDataManagerMock.swift */,
+				62B9D50929CA1218006E1D56 /* UserServicesMock.swift */,
+				62B9D50B29CA1258006E1D56 /* AuthCoordinatorMock.swift */,
 				62708DDD29BB4533006DCB2B /* Fonts */,
 				62708E0629BB4CBB006DCB2B /* Resources.swift */,
 			);
@@ -543,15 +547,19 @@
 		62B9D4FB29CA0CD7006E1D56 /* OnlineShopTest_UIKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				62B9D51929CA496E006E1D56 /* Mocks */,
 				62B9D51529CA2889006E1D56 /* DetailViewModelTests.swift */,
-				62B9D50529CA0FE4006E1D56 /* SignInViewModelTests.swift */,
-				62B9D50729CA1125006E1D56 /* NetworkManagerMock.swift */,
-				62B9D50D29CA1D34006E1D56 /* CoreDataManagerMock.swift */,
-				62B9D50929CA1218006E1D56 /* UserServicesMock.swift */,
-				62B9D50B29CA1258006E1D56 /* AuthCoordinatorMock.swift */,
-				62B9D51729CA28DC006E1D56 /* HomeCoordinatorMock.swift */,
 			);
 			path = OnlineShopTest_UIKitTests;
+			sourceTree = "<group>";
+		};
+		62B9D51929CA496E006E1D56 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				62B9D51729CA28DC006E1D56 /* HomeCoordinatorMock.swift */,
+				62B9D50729CA1125006E1D56 /* NetworkManagerMock.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		62CDF75A29BC527700D735D3 /* LogIn */ = {
@@ -865,10 +873,13 @@
 				620C110E29BF087600F49E38 /* UploadItemButton.swift in Sources */,
 				62708DDA29BB3C57006DCB2B /* SignInViewModel.swift in Sources */,
 				6260816129C0C45B0095AAA6 /* ProfileImage.swift in Sources */,
+				62B9D51B29CA544B006E1D56 /* SignInViewModelTests.swift in Sources */,
 				62A2BA0A29C2F058001937DE /* HeaderView.swift in Sources */,
 				62A2BA0629C23622001937DE /* LatestItemsCell.swift in Sources */,
 				62A2B9F129C1CE1E001937DE /* NetworkProtocols.swift in Sources */,
+				62B9D51C29CA544B006E1D56 /* CoreDataManagerMock.swift in Sources */,
 				62CDF77B29BE37C000D735D3 /* ProfileViewModel.swift in Sources */,
+				62B9D51A29CA544B006E1D56 /* AuthCoordinatorMock.swift in Sources */,
 				62B9D4E229C6D9C2006E1D56 /* DetailViewModel.swift in Sources */,
 				62A2B9F329C1CE5D001937DE /* NetworkError.swift in Sources */,
 				62708E0E29BB7783006DCB2B /* SignInWithButton.swift in Sources */,
@@ -902,6 +913,7 @@
 				62708DBD29BB321E006DCB2B /* AppDelegate.swift in Sources */,
 				62CDF76D29BDE41100D735D3 /* HomeCoordinator.swift in Sources */,
 				62708E0C29BB5E43006DCB2B /* UIFont + ext.swift in Sources */,
+				62B9D51D29CA544B006E1D56 /* UserServicesMock.swift in Sources */,
 				62A2B9F529C1D02C001937DE /* URLSession + ext.swift in Sources */,
 				62B9D4F329C9AF45006E1D56 /* ThumbnailCollectionView.swift in Sources */,
 				62708DBF29BB321E006DCB2B /* SceneDelegate.swift in Sources */,
@@ -914,12 +926,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62B9D50C29CA1258006E1D56 /* AuthCoordinatorMock.swift in Sources */,
-				62B9D50E29CA1D34006E1D56 /* CoreDataManagerMock.swift in Sources */,
 				62B9D51829CA28DC006E1D56 /* HomeCoordinatorMock.swift in Sources */,
 				62B9D50829CA1125006E1D56 /* NetworkManagerMock.swift in Sources */,
-				62B9D50629CA0FE4006E1D56 /* SignInViewModelTests.swift in Sources */,
-				62B9D50A29CA1218006E1D56 /* UserServicesMock.swift in Sources */,
 				62B9D51629CA2889006E1D56 /* DetailViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
