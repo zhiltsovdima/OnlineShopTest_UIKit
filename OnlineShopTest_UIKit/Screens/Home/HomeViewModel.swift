@@ -11,7 +11,8 @@ protocol HomeViewModelProtocol: AnyObject {
     var userPhoto: UIImage? { get }
     var latestItems: [ShopItemCellViewModel] { get }
     var flashSaleItems: [ShopItemCellViewModel] { get }
-    var updateCompletion: ((String?) -> Void)? { get set }
+    var errorMessage: String? { get }
+    var updateCompletion: (() -> Void)? { get set }
     
     func searchTextDidChange(_ searchBar: UISearchBar, _ text: String)
     func fetchData()
@@ -25,8 +26,9 @@ final class HomeViewModel {
     
     var latestItems = [ShopItemCellViewModel]()
     var flashSaleItems = [ShopItemCellViewModel]()
+    var errorMessage: String?
     
-    var updateCompletion: ((String?) -> Void)?
+    var updateCompletion: (() -> Void)?
     
     let networkManager: NetworkManagerProtocol
     
@@ -86,9 +88,13 @@ extension HomeViewModel: HomeViewModelProtocol {
         }
         
         group.notify(queue: .main) { [weak self] in
-            guard let self, let latestItems, let flashSaleItems else { return }
-            let imageGroup = DispatchGroup()
+            guard let self, let latestItems, let flashSaleItems else {
+                self?.errorMessage = errorMessage
+                self?.updateCompletion?()
+                return
+            }
             
+            let imageGroup = DispatchGroup()
             self.latestItems = latestItems.map {
                 ShopItemCellViewModel(self.coordinator, self.networkManager, imageGroup, name: $0.name, category: $0.category, price: $0.price, imageURL: $0.imageUrl)
             }
@@ -97,7 +103,7 @@ extension HomeViewModel: HomeViewModelProtocol {
                 ShopItemCellViewModel(self.coordinator, self.networkManager, imageGroup, name: $0.name, category: $0.category, price: $0.price, imageURL: $0.imageUrl, discount: $0.discount)
             }
             imageGroup.notify(queue: .main) {
-                self.updateCompletion?(errorMessage)
+                self.updateCompletion?()
             }
         }
     }

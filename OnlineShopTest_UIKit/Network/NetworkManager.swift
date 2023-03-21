@@ -16,6 +16,8 @@ enum Result<Success, Failure: Error> {
 
 class NetworkManager: NetworkManagerProtocol {
     
+    private var imageCache = NSCache<NSURL, UIImage>()
+    
     private let urlSession: URLSessionProtocol
     
     init(urlSession: URLSessionProtocol = URLSession.shared) {
@@ -39,13 +41,19 @@ class NetworkManager: NetworkManagerProtocol {
     }
     
     func fetchImage(from url: URL, completion: @escaping (Result<UIImage, NetworkError>) -> Void) {
-        let task = urlSession.dataTask(with: url) { data, response, error in
+        if let cachedImage = imageCache.object(forKey: url as NSURL) {
+            completion(.success(cachedImage))
+            return
+        }
+        let task = urlSession.dataTask(with: url) { [weak self] data, response, error in
+            guard let self else { return completion(Result.failure(NetworkError.failed))}
             do {
                 let safeData = try NetworkError.processResponseData(data, response)
                 guard let image = UIImage(data: safeData) else {
                     completion(.failure(NetworkError.unableToDecode))
                     return
                 }
+                self.imageCache.setObject(image, forKey: url as NSURL)
                 completion(.success(image))
             } catch {
                 let netError = error as! NetworkError

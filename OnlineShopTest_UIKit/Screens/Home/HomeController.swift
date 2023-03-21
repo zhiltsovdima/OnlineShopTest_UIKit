@@ -44,14 +44,14 @@ final class HomeController: UIViewController {
     }
     
     private func updateUI() {
-        viewModel.updateCompletion = { [weak self] errorMessage in
-            guard errorMessage == nil else {
-                self?.errorLabel.text = errorMessage
+        viewModel.updateCompletion = { [weak self] in
+            if let error = self?.viewModel.errorMessage {
+                self?.errorLabel.text = error.description
                 self?.placeholder.stopAnimating()
-                return
+            } else {
+                self?.tableView.reloadSections(IndexSet(integersIn: 1...2), with: .automatic)
+                self?.hideLoadingView()
             }
-            self?.tableView.reloadSections(IndexSet(integersIn: 1...2), with: .automatic)
-            self?.hideLoadingView()
         }
     }
     
@@ -108,6 +108,7 @@ extension HomeController {
         view.addSubview(errorLabel)
         errorLabel.font = UIFont.semiBold(with: 16)
         errorLabel.textColor = Resources.Colors.black
+        errorLabel.textAlignment = .center
         
         view.addSubview(tableView)
         tableView.register(CategoriesCell.self, forCellReuseIdentifier: Resources.CellIdentifier.categories)
@@ -156,6 +157,7 @@ extension HomeController {
             
             errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 2/3)
         ])
     }
 }

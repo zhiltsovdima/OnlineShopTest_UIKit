@@ -40,16 +40,11 @@ final class DetailViewModel {
 extension DetailViewModel: DetailViewModelProtocol {
     
     func fetchData() {
-        var imageUrls = [URL]()
-        var images = [UIImage]()
-        var errorMessage: String?
-        
-        let dispatchSemaphore = DispatchSemaphore(value: 0)
         networkManager.fetchData(requestType: .detail) { [weak self] (result: Result<ShopItem, NetworkError>) in
             guard let self else { return }
             switch result {
             case .success(let shopItem):
-                self.detailData = DetailModel(
+                let detailData = DetailModel(
                     name: shopItem.name,
                     description: shopItem.description ?? "No data",
                     priceDouble: shopItem.price,
@@ -57,19 +52,23 @@ extension DetailViewModel: DetailViewModelProtocol {
                     reviews: "(\(shopItem.numberOfReviews ?? 0) reviews)",
                     colors: shopItem.colors?.compactMap { UIColor(hexString: $0) }
                 )
-                imageUrls = shopItem.imageUrls ?? []
+                self.detailData = detailData
+                self.fetchImages(from: shopItem.imageUrls ?? [])
             case .failure(let error):
-                errorMessage = error.description
+                DispatchQueue.main.async {
+                    self.errorMessage = error.description
+                    self.updateCompletion?()
+                }
             }
-            dispatchSemaphore.signal()
         }
+    }
+    
+    func fetchImages(from urls: [URL]) {
+        var images = [UIImage]()
+        var errorMessage: String?
         
-        dispatchSemaphore.wait()
-        updateCompletion?()
-        
-        guard errorMessage == nil else { return }
         let dispathGroup = DispatchGroup()
-        imageUrls.forEach {
+        urls.forEach {
             dispathGroup.enter()
             networkManager.fetchImage(from: $0) { result in
                 switch result {
@@ -82,8 +81,14 @@ extension DetailViewModel: DetailViewModelProtocol {
             }
         }
         dispathGroup.notify(queue: .main) { [weak self] in
-            self?.detailData?.images = images
-            self?.updateImagesCompletion?()
+            guard let self else { return }
+            if let errorMessage {
+                self.errorMessage = errorMessage
+            } else {
+                self.detailData?.images = images
+            }
+            self.updateCompletion?()
+            self.updateImagesCompletion?()
         }
     }
     

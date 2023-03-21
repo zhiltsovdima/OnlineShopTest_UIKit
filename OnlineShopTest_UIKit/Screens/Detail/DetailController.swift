@@ -11,6 +11,9 @@ final class DetailController: UIViewController {
     
     private let viewModel: DetailViewModelProtocol
     
+    private let placeholder = UIActivityIndicatorView()
+    private let errorLabel = UILabel()
+
     private let imagesView = ImagesView()
     private let favoriteShareView = FavoriteShareView()
     
@@ -43,6 +46,7 @@ final class DetailController: UIViewController {
         super.viewDidLoad()
         
         updateUI()
+        showPlaceholder()
         viewModel.fetchData()
                 
         setupViews()
@@ -52,7 +56,11 @@ final class DetailController: UIViewController {
     
     private func updateUI() {
         viewModel.updateCompletion = { [weak self] in
-            guard let self, let detailData = self.viewModel.detailData else { return }
+            guard let self, let detailData = self.viewModel.detailData else {
+                self?.placeholder.stopAnimating()
+                self?.errorLabel.text = self?.viewModel.errorMessage
+                return
+            }
             self.nameLabel.text = detailData.name
             self.descriptionLabel.text = detailData.description
             self.priceLabel.text = detailData.price
@@ -62,10 +70,25 @@ final class DetailController: UIViewController {
             if !self.colorsSegments.isSetup {
                 self.colorsSegments.setup(withColors: detailData.colors ?? [])
             }
+            self.hidePlaceholder()
         }
         viewModel.updateImagesCompletion = { [weak self] in
             guard let self, let images = self.viewModel.detailData?.images else { return }
             self.imagesView.updateUI(with: images)
+        }
+    }
+    
+    private func showPlaceholder() {
+        placeholder.startAnimating()
+        [imagesView, favoriteShareView, nameLabel, priceLabel, descriptionLabel, ratingStackView, colorLabel, colorsSegments, addingToCartView].forEach {
+            $0.isHidden = true
+        }
+    }
+    
+    private func hidePlaceholder() {
+        placeholder.stopAnimating()
+        [imagesView, favoriteShareView, nameLabel, priceLabel, descriptionLabel, ratingStackView, colorLabel, colorsSegments, addingToCartView].forEach {
+            $0.isHidden = false
         }
     }
     
@@ -85,7 +108,7 @@ final class DetailController: UIViewController {
 extension DetailController {
     
     private func setupViews() {
-        [imagesView, favoriteShareView, nameLabel, priceLabel, descriptionLabel, ratingStackView, colorLabel, colorsSegments, addingToCartView].forEach {
+        [placeholder, errorLabel, imagesView, favoriteShareView, nameLabel, priceLabel, descriptionLabel, ratingStackView, colorLabel, colorsSegments, addingToCartView].forEach {
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -94,6 +117,11 @@ extension DetailController {
             addingToCartView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
+        
+        placeholder.hidesWhenStopped = true
+        errorLabel.font = UIFont.bold(with: 16)
+        errorLabel.textColor = Resources.Colors.black
+        errorLabel.textAlignment = .center
         
         ratingStackView.axis = .horizontal
         ratingStackView.spacing = 4
@@ -147,6 +175,13 @@ extension DetailController {
             favoriteShareView.widthAnchor.constraint(equalToConstant: 42),
             favoriteShareView.heightAnchor.constraint(equalToConstant: 95),
             favoriteShareView.bottomAnchor.constraint(equalTo: priceLabel.topAnchor, constant: -136),
+            
+            placeholder.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            placeholder.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            errorLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 2/3),
             
             nameLabel.topAnchor.constraint(equalTo: imagesView.bottomAnchor, constant: 10),
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),

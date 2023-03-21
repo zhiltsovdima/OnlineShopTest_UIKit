@@ -51,9 +51,10 @@ extension ShopItemCellViewModel: ShopItemCellViewModelProtocol {
         guard let imageURL else { return }
         imageGroup.enter()
         networkManager.fetchImage(from: imageURL) { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success(let fetchedImage):
-                self?.image = fetchedImage
+                self.image = fetchedImage
             case .failure(let error):
                 print(error.description)
             }
