@@ -83,6 +83,8 @@ enum Resources {
         static let latestItems = "LatestItemsCell"
         static let flashSaleItems = "FlashSaleItemsCell"
         
+        static let thumbnailCell = "ThumbnailCollectionViewCell"
+        
         static let category = "CategoryCell"
         static let latest = "LatestCell"
         static let flashSale = "FlashSaleCell"

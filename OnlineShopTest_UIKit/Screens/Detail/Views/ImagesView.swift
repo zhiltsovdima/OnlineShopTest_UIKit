@@ -7,19 +7,17 @@
 
 import UIKit
 
+protocol ImageUpdatable: AnyObject {
+    func updateUI(with images: [UIImage?])
+    func updateSelectedImage(index: Int)
+}
+
 final class ImagesView: UIView {
-        
+
     private let scrollView = UIScrollView()
-    private let imagesStackView = UIStackView()
+    private var imagesCollectionView = ThumbnailCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     
-    private var images = [UIImage?]()
     private var selectedImageIndex = 0
-    
-    private var scrollContentSize: CGSize {
-        return CGSize(
-            width: frame.width * CGFloat(images.count),
-            height: frame.height * 4/5)
-    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,25 +28,34 @@ final class ImagesView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    @objc func imageButtonTapped(sender: UIButton) {
-        updateSelectedImage(index: sender.tag)
-    }
+}
+
+// MARK: - ImageUpdatable
+
+extension ImagesView: ImageUpdatable {
     
     func updateUI(with images: [UIImage?]) {
-        self.images = images
         for (index, image) in images.enumerated() {
             let imageView = UIImageView(image: image)
             imageView.contentMode = .scaleAspectFit
             imageView.frame = imageFrame(for: index)
             scrollView.addSubview(imageView)
-            
-            let imageButton = createImageButton(for: index)
-            imagesStackView.addArrangedSubview(imageButton)
         }
-        scrollView.contentSize = scrollContentSize
+        imagesCollectionView.updateImages(with: images)
+        scrollView.contentSize = scrollContentSize(itemsCount: images.count)
         updateSelectedImage(index: selectedImageIndex)
     }
+    
+    func updateSelectedImage(index: Int) {
+        selectedImageIndex = index
+        let offset = CGPoint(x: frame.width * CGFloat(selectedImageIndex), y: 0)
+        scrollView.setContentOffset(offset, animated: true)
+    }
+}
+
+// MARK: - Views settings
+
+extension ImagesView {
         
     private func imageFrame(for index: Int) -> CGRect {
         let x = frame.width * CGFloat(index)
@@ -58,49 +65,25 @@ final class ImagesView: UIView {
         return CGRect(x: x, y: y, width: width, height: height)
     }
     
-    private func createImageButton(for index: Int) -> UIButton {
-        let imageButton = UIButton()
-        imageButton.tag = index
-        imageButton.setImage(images[index], for: .normal)
-        imageButton.addTarget(self, action: #selector(imageButtonTapped), for: .touchUpInside)
-        imageButton.layer.cornerRadius = 10
-        imageButton.clipsToBounds = true
-        imageButton.imageView?.contentMode = .scaleAspectFill
-        imageButton.translatesAutoresizingMaskIntoConstraints = false
-        imageButton.widthAnchor.constraint(equalToConstant: 65).isActive = true
-        imageButton.heightAnchor.constraint(equalToConstant: 37).isActive = true
-        return imageButton
-    }
-    
-    private func updateSelectedImage(index: Int) {
-        selectedImageIndex = index
-        
-        for (buttonIndex, button) in imagesStackView.arrangedSubviews.enumerated() {
-            guard let imageButton = button as? UIButton else { continue }
-            
-            if buttonIndex == selectedImageIndex {
-                imageButton.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-            } else {
-                imageButton.transform = CGAffineTransform.identity
-            }
-        }
-        
-        let offset = CGPoint(x: frame.width * CGFloat(selectedImageIndex), y: 0)
-        scrollView.setContentOffset(offset, animated: true)
+    private func scrollContentSize(itemsCount: Int) -> CGSize {
+        return CGSize(
+            width: frame.width * CGFloat(itemsCount),
+            height: frame.height * 4/5
+        )
     }
     
     private func setupView() {
-        [scrollView, imagesStackView].forEach {
+        [scrollView, imagesCollectionView].forEach {
             addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         scrollView.backgroundColor = .clear
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.isPagingEnabled = true
+        scrollView.delegate = self
         
-        imagesStackView.distribution = .fillEqually
-        imagesStackView.spacing = 10
-        imagesStackView.backgroundColor = .clear
+        imagesCollectionView.imagesView = self
+        imagesCollectionView.backgroundColor = .clear
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor),
@@ -108,9 +91,27 @@ final class ImagesView: UIView {
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
             scrollView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 4/5),
             
-            imagesStackView.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 20),
-            imagesStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            imagesStackView.centerXAnchor.constraint(equalTo: centerXAnchor)
+            imagesCollectionView.topAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 10),
+            imagesCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            imagesCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 70),
+            imagesCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -70),
         ])
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+
+extension ImagesView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView.frame.width != 0 else { return }
+        let index = Int(round(scrollView.contentOffset.x / scrollView.frame.width))
+        if index != selectedImageIndex {
+            selectedImageIndex = index
+            imagesCollectionView.selectItem(
+                at: IndexPath(item: selectedImageIndex, section: 0),
+                animated: true,
+                scrollPosition: .centeredHorizontally
+            )
+        }
     }
 }
