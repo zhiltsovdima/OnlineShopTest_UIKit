@@ -14,23 +14,13 @@ final class NetworkManagerMock: NetworkManagerProtocol {
     var imageResult: Result<UIImage, NetworkError>?
     
     func fetchData<T: Decodable>(requestType: APIEndpoints, completion: @escaping (Result<T, NetworkError>) -> Void) {
-        guard let dataResult else { return }
-        switch dataResult {
-        case .success(let item):
-            completion(.success(item as! T))
-        case .failure(let error):
-            completion(.failure(error))
-        }
+        guard let dataResult = dataResult as? Result<T, NetworkError> else { return }
+        completion(dataResult)
     }
 
     func fetchImage(from url: URL, completion: @escaping (Result<UIImage, NetworkError>) -> Void) {
         guard let imageResult else { return }
-        switch imageResult {
-        case .success(let image):
-            completion(.success(image))
-        case .failure(let error):
-            completion(.failure(error))
-        }
+        completion(imageResult)
     }
 }
 

@@ -63,7 +63,7 @@ extension DetailViewModel: DetailViewModelProtocol {
         }
     }
     
-    private func fetchImages(from urls: [URL]?) {
+    func fetchImages(from urls: [URL]?) {
         guard let urls, !urls.isEmpty else { return }
         var images = [UIImage]()
         var errorMessage: String?
