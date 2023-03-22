@@ -37,6 +37,14 @@ final class PasswordTextField: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+    }
+    
+    override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+        return bounds.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+    }
+        
     private func setupView() {
         isSecureTextEntry = true
         showPasswordButton.imageView?.tintColor = Resources.Colors.textFieldPlaceholder
