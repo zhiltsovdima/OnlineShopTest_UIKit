@@ -1,7 +1,7 @@
 # OnlineShopTest_UIKit
 UIKit app for browsering products in the shop.
 
-<img src="https://user-images.githubusercontent.com/50846656/226721420-abdcac26-3778-41f0-ba9f-f157cc1e1ccb.png" width = 20% height = 20%> <img src="https://user-images.githubusercontent.com/50846656/226721588-24e11e3a-4f08-4555-b771-53150f552b33.png" width = 20% height = 20%>
+<img src="https://user-images.githubusercontent.com/50846656/226721420-abdcac26-3778-41f0-ba9f-f157cc1e1ccb.png" width = 20% height = 20%> <img src="https://user-images.githubusercontent.com/50846656/226826097-e50387b3-3070-4896-b4de-37714de44b00.png" width = 20% height = 20%>
 <img src="https://user-images.githubusercontent.com/50846656/226721782-07ed707e-bc16-4fee-b230-4611791e3240.png" width = 20% height = 20%>
 <img src="https://user-images.githubusercontent.com/50846656/226721863-85888328-d6de-4016-992d-f88a170b17db.png" width = 20% height = 20%>
 <img src="https://user-images.githubusercontent.com/50846656/226721909-7b261fd2-ab5e-4fdf-ac18-f524d3bbd644.png" width = 20% height = 20%>
