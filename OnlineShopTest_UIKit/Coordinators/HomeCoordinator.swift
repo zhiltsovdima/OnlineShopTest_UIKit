@@ -21,6 +21,7 @@ final class HomeCoordinator: NSObject, Coordinator {
     private let navigationController: UINavigationController
     private let userServices: UserServicesProtocol
     private let networkManager: NetworkManagerProtocol
+    lazy private var searchService: SearchServiceProtocol = SearchService(networkManager)
     
     init(_ navigationController: UINavigationController,
          _ userServices: UserServicesProtocol,
@@ -31,7 +32,7 @@ final class HomeCoordinator: NSObject, Coordinator {
     }
     
     func start() {
-        let viewModel = HomeViewModel(coordinator: self, userServices, networkManager)
+        let viewModel = HomeViewModel(coordinator: self, userServices, networkManager, searchService)
         let homeController = HomeController(viewModel: viewModel)
         navigationController.pushViewController(homeController, animated: false)
     }

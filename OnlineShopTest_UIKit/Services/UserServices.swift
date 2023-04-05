@@ -22,7 +22,7 @@ final class UserServices: UserServicesProtocol {
 
     private let coreDataManager: CoreDataManagerProtocol
     
-    init(coreDataManager: CoreDataManager) {
+    init(coreDataManager: CoreDataManagerProtocol) {
         self.coreDataManager = coreDataManager
     }
     

@@ -34,11 +34,17 @@ final class HomeViewModel {
     
     private weak var coordinator: HomeCoordinatorProtocol?
     private var userServices: UserServicesProtocol
+    private var searchService: SearchServiceProtocol
     
-    init(coordinator: HomeCoordinatorProtocol, _ userServices: UserServicesProtocol, _ networkManager: NetworkManagerProtocol) {
+    init(coordinator: HomeCoordinatorProtocol,
+         _ userServices: UserServicesProtocol,
+         _ networkManager: NetworkManagerProtocol,
+         _ searchService: SearchServiceProtocol)
+    {
         self.coordinator = coordinator
         self.userServices = userServices
         self.networkManager = networkManager
+        self.searchService = searchService
         
         fetchUserData()
     }
@@ -110,25 +116,12 @@ extension HomeViewModel: HomeViewModelProtocol {
     
     func searchTextDidChange(_ searchBar: UISearchBar, _ text: String) {
         coordinator?.removeSearchResult()
-    
-        var searchResults: SearchData?
-        let semaphore = DispatchSemaphore(value: 0)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-            self?.networkManager.fetchData(requestType: .search) { (result: Result<SearchData, NetworkError>) in
-                switch result {
-                case .success(let searchData):
-                    searchResults = searchData
-                case .failure(let netError):
-                    print(netError.description)
-                }
-                semaphore.signal()
+        searchService.search(for: text) { [weak coordinator] results in
+            guard !results.isEmpty else { return }
+            DispatchQueue.main.async {
+                coordinator?.showSearchResult(searchBar, results)
             }
-            semaphore.wait()
-            guard let searchResults else { return }
-            let foundWords = searchResults.words.filter { $0.range(of: text, options: .caseInsensitive) != nil }
-            guard !foundWords.isEmpty else { return }
-            self?.coordinator?.showSearchResult(searchBar, foundWords)
         }
     }
     
